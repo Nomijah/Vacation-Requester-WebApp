@@ -1,12 +1,10 @@
 import React from "react";
 
-function UserMain({ user, onClick }) {
+function UserMain() {
   return (
     <>
-      <h1>Välkommen {user}</h1>
-      <button className="button-primary" onClick={onClick}>
-        Logga ut
-      </button>
+      <h1>Välkommen</h1>
+      <button className="button-primary">Logga ut</button>
     </>
   );
 }
