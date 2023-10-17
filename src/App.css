@@ -1,0 +1,11 @@
+body {
+  /* background-image: url("https://www.wallpaperuse.com/wallp/25-256313_m.jpg"); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
