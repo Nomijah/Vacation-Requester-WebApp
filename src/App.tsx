@@ -9,7 +9,7 @@ export const Context = React.createContext<IUser | undefined>(undefined);
 interface IUser {
   id: string;
   firstName: string;
-  lName: string;
+  lastName: string;
   role: number;
   email: string;
 }
@@ -18,20 +18,20 @@ export function App() {
   const [user, setUser] = useState<IUser>({
     id: "",
     firstName: "",
-    lName: "",
+    lastName: "",
     role: 0,
     email: "",
   });
 
   const handleLogOut = (): void => {
-    setUser({ id: "", firstName: "", lName: "", role: 0, email: "" });
+    setUser({ id: "", firstName: "", lastName: "", role: 0, email: "" });
   };
 
   const handleLogIn = (data: IUser): void => {
     setUser({
       id: data.id,
       firstName: data.firstName,
-      lName: data.lName,
+      lastName: data.lastName,
       role: data.role,
       email: data.email,
     });
