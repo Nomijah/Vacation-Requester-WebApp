@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../App";
+import LogoutContainer from "../logout/LogoutContainer";
 
-function StaffMain({ handleLogOut }: { handleLogOut: () => void }) {
-  const user = useContext(Context);
+function StaffMain() {
+  const { user, handleLogOut } = useContext(Context);
 
   return (
     <>
       <h1>Välkommen {user.firstName}</h1>
-      <button onClick={handleLogOut} className="button-primary">
-        Logga ut
-      </button>
+      <LogoutContainer />
     </>
   );
 }

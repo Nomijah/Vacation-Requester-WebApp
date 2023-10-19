@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import userLogin from "../apicalls/userLogin";
 
-function LoginContainer({
-  handleLogIn,
-}: {
-  handleLogIn: (arg0: object) => void;
-}) {
+function LoginContainer({ handleLogIn }: { handleLogIn: (data: any) => void }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +13,7 @@ function LoginContainer({
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const userData: any = await userLogin(formData);
-    handleLogIn(userData.data);
+    handleLogIn(userData);
   };
 
   return (
