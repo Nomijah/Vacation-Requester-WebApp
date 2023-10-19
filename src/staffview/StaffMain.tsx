@@ -6,7 +6,7 @@ function StaffMain({ handleLogOut }: { handleLogOut: () => void }) {
 
   return (
     <>
-      <h1>Välkommen {user.fName}</h1>
+      <h1>Välkommen {user.firstName}</h1>
       <button onClick={handleLogOut} className="button-primary">
         Logga ut
       </button>

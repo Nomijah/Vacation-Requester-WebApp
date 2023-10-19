@@ -6,7 +6,7 @@ function AdminMain({ handleLogOut }: { handleLogOut: () => void }) {
   const [user, setUser] = useState(us);
   return (
     <>
-      <h1>Hej {user.fName} du ärofyllda admin.</h1>
+      <h1>Hej {user.firstName} du ärofyllda admin.</h1>
       <button onClick={handleLogOut} className="button-primary">
         Logga ut
       </button>

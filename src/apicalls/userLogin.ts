@@ -16,7 +16,7 @@ const userLogin = (loginCredentials: {
       )
       .then((res) => {
         console.log(res);
-        resolve(res);
+        resolve(res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -17,7 +17,7 @@ function LoginContainer({
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const userData: any = await userLogin(formData);
-    handleLogIn(userData);
+    handleLogIn(userData.data);
   };
 
   return (
