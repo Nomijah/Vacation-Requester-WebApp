@@ -4,7 +4,7 @@ import LoginContainer from "./login/LoginContainer";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
 
-export const Context = React.createContext<IUser | undefined>(undefined);
+export const Context = React.createContext<any>(undefined);
 
 interface IUser {
   id: string;
@@ -38,12 +38,12 @@ export function App() {
   };
 
   return (
-    <Context.Provider value={user}>
+    <Context.Provider value={{ user, handleLogOut }}>
       {user.id ? (
         user.role === 1 ? (
-          <AdminMain handleLogOut={handleLogOut} />
+          <AdminMain />
         ) : (
-          <StaffMain handleLogOut={handleLogOut} />
+          <StaffMain />
         )
       ) : (
         <LoginContainer handleLogIn={handleLogIn} />
