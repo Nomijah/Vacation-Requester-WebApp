@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import userLogin from "../apicalls/userLogin";
 
-function LoginContainer({ onLogin }) {
+function LoginContainer({
+  handleLogIn,
+}: {
+  handleLogIn: (arg0: object) => void;
+}) {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,10 +14,10 @@ function LoginContainer({ onLogin }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    userLogin(formData);
-    onLogin(formData.email);
+    const userData: any = await userLogin(formData);
+    handleLogIn(userData);
   };
 
   return (

@@ -1,27 +1,54 @@
+import React, { useState } from "react";
 import "./App.css";
 import LoginContainer from "./login/LoginContainer";
-import { CookiesProvider, useCookies } from "react-cookie";
-import UserMain from "./userview/UserMain";
+import AdminMain from "./adminview/AdminMain";
+import StaffMain from "./staffview/StaffMain";
 
-function App() {
-  const [cookies, setCookie] = useCookies(["user"]);
+export const Context = React.createContext<IUser | undefined>(undefined);
 
-  function handleLogin(user: string) {
-    setCookie("user", user, { path: "/testcookie/" });
-  }
+interface IUser {
+  id: string;
+  fName: string;
+  lName: string;
+  role: number;
+  email: string;
+}
 
-  const handleClick = () => {
-    setCookie("user", null);
+export function App() {
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    fName: "",
+    lName: "",
+    role: 0,
+    email: "",
+  });
+
+  const handleLogOut = (): void => {
+    setUser({ id: "", fName: "", lName: "", role: 0, email: "" });
+  };
+
+  const handleLogIn = (data: IUser): void => {
+    setUser({
+      id: data.id,
+      fName: data.fName,
+      lName: data.lName,
+      role: data.role,
+      email: data.email,
+    });
   };
 
   return (
-    <CookiesProvider>
-      {cookies.user ? (
-        <UserMain user={cookies.user} onClick={handleClick} />
+    <Context.Provider value={user}>
+      {user.id ? (
+        user.role === 1 ? (
+          <AdminMain handleLogOut={handleLogOut} />
+        ) : (
+          <StaffMain handleLogOut={handleLogOut} />
+        )
       ) : (
-        <LoginContainer onLogin={handleLogin} />
+        <LoginContainer handleLogIn={handleLogIn} />
       )}
-    </CookiesProvider>
+    </Context.Provider>
   );
 }
 

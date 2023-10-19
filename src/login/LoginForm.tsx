@@ -21,6 +21,7 @@ function LoginForm({
             placeholder="Enter email"
             value={formData.email}
             onChange={handleChange}
+            autoComplete="email"
           />
         </div>
         <div className="form-group m-3">
@@ -33,6 +34,7 @@ function LoginForm({
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            autoComplete="off"
           />
         </div>
         <button type="submit" className="btn btn-primary m-3 mt-1">
