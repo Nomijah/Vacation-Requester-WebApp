@@ -12,7 +12,9 @@ function StaffMain() {
       <SidebarContainer setViewState={setViewState} />
       <div className="main">
         {viewState === "home" && <HomeViewContainer />}
-        {viewState === "apply" && <ApplyViewContainer />}
+        {viewState === "apply" && (
+          <ApplyViewContainer setViewState={setViewState} />
+        )}
       </div>
     </div>
   );

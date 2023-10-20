@@ -3,18 +3,14 @@ import "./App.css";
 import LoginContainer from "./login/LoginContainer";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
+
+import "./interface/InterfaceCollection";
+
 import LoginView from "./login/LoginView";
 import RegisterView from "./register/RegisterView";
 
-export const Context = React.createContext<any>(undefined);
 
-interface IUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  role: number;
-  email: string;
-}
+export const Context = React.createContext<any>(undefined);
 
 export function App() {
   const [user, setUser] = useState<IUser>({
