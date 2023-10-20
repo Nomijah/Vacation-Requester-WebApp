@@ -30,3 +30,11 @@ interface ILeaveRequest {
 type LeaveRequestTableProps = {
   leaveRequests: ILeaveRequest[]; // The leave requests to display
 };
+
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  role: number;
+  email: string;
+}
