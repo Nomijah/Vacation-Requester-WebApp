@@ -9,3 +9,10 @@ body {
   height: 100vh;
   margin: 0;
 }
+.admin-page {
+  margin-top: 5rem;
+  width: 100vh;
+  padding: 3rem;
+  box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.2),
+    0px 0px 100px 0px rgba(0, 0, 0, 0.2);
+}

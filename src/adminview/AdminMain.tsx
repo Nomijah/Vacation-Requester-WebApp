@@ -2,14 +2,25 @@ import React, { useContext, useState } from "react";
 import { Context } from "../App";
 import LogoutContainer from "../logout/LogoutContainer";
 import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTopBarContainer";
+import CreateLeaveTypeContainer from "./containers/CreateLeaveTypeContainer";
+
+import AdminTableContainer from "./containers/AdminTableContainer";
+import DeleteEditLeaveTypeForm from "./components/DeleteEditLeaveTypeForm";
 
 function AdminMain() {
   const { user, handleLogOut } = useContext(Context);
   return (
     <>
-      <h1>Hej {user.firstName} du ärofyllda admin.</h1>
-      <LeaveRequestTopBarContainer />
-      <LogoutContainer />
+      <div className="bg-white admin-page text-center">
+        <h1>
+          <span className="text-success">Admin</span> &nbsp;{user.firstName}
+        </h1>
+        <LeaveRequestTopBarContainer />
+        <CreateLeaveTypeContainer />
+        <DeleteEditLeaveTypeForm />
+        <AdminTableContainer />
+        <LogoutContainer />
+      </div>
     </>
   );
 }

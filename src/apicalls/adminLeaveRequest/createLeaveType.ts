@@ -1,9 +1,10 @@
 import axios from "axios";
+import "../../interface/InterfaceCollection";
 
-const getAllLeaveRequests = () => {
+const createLeaveType = (leaveType: LeaveType) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/LeaveRequest`, {
+      .post(`${import.meta.env.VITE_API_URL}/LeaveType`, leaveType, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -20,4 +21,4 @@ const getAllLeaveRequests = () => {
   });
 };
 
-export default getAllLeaveRequests;
+export default createLeaveType;
