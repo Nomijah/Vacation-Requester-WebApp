@@ -6,7 +6,6 @@ interface User {
 
 interface LeaveType {
   // Define the properties you need from the LeaveType object here
-  id: string; // Example property
   type: string; // Example property
   // ... other properties
 }
