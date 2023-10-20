@@ -1,0 +1,5 @@
+.table th {
+  white-space: nowrap; /* Prevents wrapping */
+  cursor: pointer; /* Indicates the header is clickable */
+  align-items: center; /* Vertically aligns the icon with the text */
+}
