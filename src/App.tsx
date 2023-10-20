@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-import LoginContainer from "./login/LoginContainer";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
 
@@ -8,7 +7,6 @@ import "./interface/InterfaceCollection";
 
 import LoginView from "./login/LoginView";
 import RegisterView from "./register/RegisterView";
-
 
 export const Context = React.createContext<any>(undefined);
 

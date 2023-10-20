@@ -1,7 +1,6 @@
 interface ILeaveType {
-  // Define the properties you need from the LeaveType object here
-  type: string; // Example property
-  // ... other properties
+  id: string;
+  type: string;
 }
 
 enum ApprovalState {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SidebarContainer from "./Containers/SidebarContainer";
 import HomeViewContainer from "./Containers/HomeViewContainer";
 import ApplyViewContainer from "./Containers/ApplyViewContainer";
