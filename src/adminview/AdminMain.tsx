@@ -9,10 +9,12 @@ function AdminMain() {
   const { user, handleLogOut } = useContext(Context);
   return (
     <>
-      <h1>Hej {user.firstName} du ärofyllda admin.</h1>
-      <LeaveRequestTopBarContainer />
-      <AdminTableContainer />
-      <LogoutContainer />
+      <div className="bg-white admin-page">
+        <h1>Hej {user.firstName} du ärofyllda admin.</h1>
+        <LeaveRequestTopBarContainer />
+        <AdminTableContainer />
+        <LogoutContainer />
+      </div>
     </>
   );
 }
