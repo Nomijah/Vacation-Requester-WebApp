@@ -1,31 +1,42 @@
-// LeaveRequestTopBarContainer.tsx
 import React, { useEffect, useState } from "react";
 import LeaveRequestTopBar from "../Components/LeaveRequestTopBar";
-import getAllLeaveRequests from "./leaveRequestsApi";
+import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
+
+interface ILeaveRequest {
+  Id: string;
+  UserId: string;
+  LeaveTypeId: string;
+  StartDate: string;
+  EndDate: string;
+  DateRequested: string;
+  approvalState: number; // Changed from string to number
+}
 
 const LeaveRequestTopBarContainer: React.FC = () => {
-  const [leaveRequests, setLeaveRequests] = useState<LeaveRequest[]>(
+  const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>(
     []
   );
 
   useEffect(() => {
-    getAllLeaveRequests() // Using the function from the separate API call file
+    getAllLeaveRequests()
       .then((data) => {
-        setLeaveRequests(data);
+        setLeaveRequests(data as ILeaveRequest[]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("An error occurred:", err));
   }, []);
 
   const totalRequests = leaveRequests.length;
+
+  // Updated filtering logic to use numbers
   const pendingRequests = leaveRequests.filter(
-    (lr) => lr.ApprovalState === "Pending"
-  ).length;
+    (lr) => lr.approvalState === 1
+  ).length; // 1 for Pending
   const approvedRequests = leaveRequests.filter(
-    (lr) => lr.ApprovalState === "Approved"
-  ).length;
+    (lr) => lr.approvalState === 2
+  ).length; // 2 for Approved
   const rejectedRequests = leaveRequests.filter(
-    (lr) => lr.ApprovalState === "Rejected"
-  ).length;
+    (lr) => lr.approvalState === 3
+  ).length; // 3 for Rejected
 
   return (
     <LeaveRequestTopBar

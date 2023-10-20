@@ -17,16 +17,27 @@ enum ApprovalState {
   Rejected = "Rejected",
 }
 
+// interface ILeaveRequest {
+//   Id: string;
+//   User: User;
+//   UserId: string;
+//   LeaveType: LeaveType;
+//   LeaveTypeId: string;
+//   StartDate: Date;
+//   EndDate: Date;
+//   DateRequested: Date;
+//   ApprovalState: ApprovalState;
+// }
+
+//Alvins gamla kod ^^
 interface ILeaveRequest {
-  Id: string;
-  User: User;
-  UserId: string;
-  LeaveType: LeaveType;
-  LeaveTypeId: string;
-  StartDate: Date;
-  EndDate: Date;
-  DateRequested: Date;
-  ApprovalState: ApprovalState;
+  id: string;
+  userId: string;
+  leaveTypeId: string;
+  startDate: string;
+  endDate: string;
+  dateRequested: string;
+  approvalState: number; // Changed to number
 }
 
 type LeaveRequestTableProps = {
