@@ -5,15 +5,19 @@ import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTop
 import CreateLeaveTypeContainer from "./containers/CreateLeaveTypeContainer";
 
 import AdminTableContainer from "./containers/AdminTableContainer";
+import DeleteEditLeaveTypeForm from "./components/DeleteEditLeaveTypeForm";
 
 function AdminMain() {
   const { user, handleLogOut } = useContext(Context);
   return (
     <>
       <div className="bg-white admin-page text-center">
-        <h1>Admin: {user.firstName} du ärofyllda admin.</h1>
+        <h1>
+          <span className="text-success">Admin</span> &nbsp;{user.firstName}
+        </h1>
         <LeaveRequestTopBarContainer />
         <CreateLeaveTypeContainer />
+        <DeleteEditLeaveTypeForm />
         <AdminTableContainer />
         <LogoutContainer />
       </div>
