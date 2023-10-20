@@ -1,15 +1,20 @@
-import React, { useContext, useState } from "react";
-import { Context } from "../App";
-import LogoutContainer from "../logout/LogoutContainer";
+import React, { useState } from "react";
+import SidebarContainer from "./Containers/SidebarContainer";
+import HomeViewContainer from "./Containers/HomeViewContainer";
+import ApplyViewContainer from "./Containers/ApplyViewContainer";
+import "./StaffMain.css";
 
 function StaffMain() {
-  const { user, handleLogOut } = useContext(Context);
+  const [viewState, setViewState] = useState("home");
 
   return (
-    <>
-      <h1>Välkommen {user.firstName}</h1>
-      <LogoutContainer />
-    </>
+    <div className="staffView">
+      <SidebarContainer setViewState={setViewState} />
+      <div className="main">
+        {viewState === "home" && <HomeViewContainer />}
+        {viewState === "apply" && <ApplyViewContainer />}
+      </div>
+    </div>
   );
 }
 
