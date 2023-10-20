@@ -3,16 +3,9 @@ import "./App.css";
 import LoginContainer from "./login/LoginContainer";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
+import "./interface/InterfaceCollection";
 
 export const Context = React.createContext<any>(undefined);
-
-interface IUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  role: number;
-  email: string;
-}
 
 export function App() {
   const [user, setUser] = useState<IUser>({

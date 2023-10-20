@@ -1,10 +1,4 @@
-interface User {
-  // Define the properties you need from the User object here
-  name: string; // Example property
-  // ... other properties
-}
-
-interface LeaveType {
+interface ILeaveType {
   // Define the properties you need from the LeaveType object here
   id: string; // Example property
   type: string; // Example property
@@ -40,6 +34,21 @@ interface ILeaveRequest {
   approvalState: number; // Changed to number
 }
 
+interface ILeaveRequestDto {
+  userId: string;
+  leaveTypeId: string;
+  startDate: string;
+  endDate: string;
+}
+
 type LeaveRequestTableProps = {
   leaveRequests: ILeaveRequest[]; // The leave requests to display
 };
+
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  role: number;
+  email: string;
+}
