@@ -9,7 +9,7 @@ function AdminMain() {
   const { user, handleLogOut } = useContext(Context);
   return (
     <>
-      <div className="bg-white admin-page">
+      <div className="bg-white admin-page text-center">
         <h1>Hej {user.firstName} du ärofyllda admin.</h1>
         <LeaveRequestTopBarContainer />
         <AdminTableContainer />
