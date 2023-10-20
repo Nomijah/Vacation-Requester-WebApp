@@ -24,7 +24,13 @@ export function App() {
   });
 
   const handleLogOut = (): void => {
-    setUser({ id: "", firstName: "", lastName: "", role: 0, email: "" });
+    setUser({
+      id: "",
+      firstName: "",
+      lastName: "",
+      role: 0,
+      email: "",
+    });
   };
 
   const handleLogIn = (data: IUser): void => {
