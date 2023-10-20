@@ -9,6 +9,18 @@ import {
 const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
   leaveRequests,
 }) => {
+  const renderApprovalState = (state: number) => {
+    switch (state) {
+      case 1:
+        return "Pending";
+      case 2:
+        return "Approved";
+      case 3:
+        return "Rejected";
+      default:
+        return null; // or return "Unknown" or some other placeholder
+    }
+  };
   return (
     <div>
       <table className="table">
@@ -31,11 +43,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
                 {new Date(leaveRequest.dateRequested).toLocaleDateString()}
               </td>
               <td>
-                {if({leaveRequest.approvalState} === 1){"Pending"}
-                else if({leaveRequest.approvalState} === 2)
-                {"Approved"} else if({leaveRequest.approvalState} === 3)
-                {"Rejected"} else
-                {}}
+                <td>{renderApprovalState(leaveRequest.approvalState)}</td>
               </td>
             </tr>
           ))}
