@@ -12,31 +12,18 @@ interface LeaveType {
 }
 
 enum ApprovalState {
-  Pending = "Pending",
-  Accepted = "Accepted",
-  Rejected = "Rejected",
+  "Pending" = 1, // Assuming 1 maps to "Pending"
+  "Accepted" = 2, // Assuming 2 maps to "Accepted"
+  "Rejected" = 3, // Assuming 3 maps to "Rejected"
 }
 
-// interface ILeaveRequest {
-//   Id: string;
-//   User: User;
-//   UserId: string;
-//   LeaveType: LeaveType;
-//   LeaveTypeId: string;
-//   StartDate: Date;
-//   EndDate: Date;
-//   DateRequested: Date;
-//   ApprovalState: ApprovalState;
-// }
-
-//Alvins gamla kod ^^
 interface ILeaveRequest {
   id: string;
   userId: string;
   leaveTypeId: string;
-  startDate: string;
-  endDate: string;
-  dateRequested: string;
+  startDate: Date;
+  endDate: Date;
+  dateRequested: Date;
   approvalState: number; // Changed to number
 }
 
