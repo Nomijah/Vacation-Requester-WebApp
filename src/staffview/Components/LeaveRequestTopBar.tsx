@@ -1,5 +1,12 @@
 // LeaveRequestTopBar.tsx
 import React from "react";
+import "./LeaveRequestTopBar.css";
+import {
+  Clock,
+  Check2Circle,
+  XCircle,
+  Check2,
+} from "react-bootstrap-icons";
 
 interface LeaveRequestTopBarProps {
   totalRequests: number;
@@ -15,11 +22,40 @@ const LeaveRequestTopBar: React.FC<LeaveRequestTopBarProps> = ({
   rejectedRequests,
 }) => {
   return (
-    <div className="topBar">
-      <div>Total Number of Requests: {totalRequests}</div>
-      <div>Pending Requests: {pendingRequests}</div>
-      <div>Approved Requests: {approvedRequests}</div>
-      <div>Rejected Requests: {rejectedRequests}</div>
+    <div
+      className="container text-center py-2 rounded shadow-sm custom-bg"
+      style={{ maxWidth: "90%" }}
+    >
+      <div className="row">
+        <div className="col p-2 m-2 border border-2 border-secondary rounded shadow-sm hover-shadow-lg bg-light">
+          <Check2Circle className="text-primary mb-2" size={32} />
+          <div className="font-weight-bold text-secondary">
+            Total of Requests
+          </div>
+          <div className="h5 text-primary">{totalRequests}</div>
+        </div>
+        <div className="col p-2 m-2 border border-2 border-secondary rounded shadow-sm hover-shadow-lg bg-light">
+          <Clock className="text-warning mb-2" size={32} />
+          <div className="font-weight-bold text-secondary">
+            Pending Requests
+          </div>
+          <div className="h5 text-warning">{pendingRequests}</div>
+        </div>
+        <div className="col p-2 m-2 border border-2 border-secondary rounded shadow-sm hover-shadow-lg bg-light">
+          <Check2 className="text-success mb-2" size={32} />
+          <div className="font-weight-bold text-secondary">
+            Approved Requests
+          </div>
+          <div className="h5 text-success">{approvedRequests}</div>
+        </div>
+        <div className="col p-2 m-2 border border-2 border-secondary rounded shadow-sm hover-shadow-lg bg-light">
+          <XCircle className="text-danger mb-2" size={32} />
+          <div className="font-weight-bold text-secondary">
+            Rejected Requests
+          </div>
+          <div className="h5 text-danger">{rejectedRequests}</div>
+        </div>
+      </div>
     </div>
   );
 };
