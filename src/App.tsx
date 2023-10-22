@@ -51,25 +51,27 @@ export function App() {
     });
   };
   return (
-    <Context.Provider value={{ user, handleLogOut }}>
-      {user.id ? (
-        user.role === 1 ? (
-          <AdminMain />
+    <div className="app-container">
+      <Context.Provider value={{ user, handleLogOut }}>
+        {user.id ? (
+          user.role === 1 ? (
+            <AdminMain />
+          ) : (
+            <StaffMain />
+          )
+        ) : isRegistering ? (
+          <RegisterView
+            handleSwitchToLogin={() => setIsRegistering(false)}
+            handleRegistration={handleRegistration}
+          />
         ) : (
-          <StaffMain />
-        )
-      ) : isRegistering ? (
-        <RegisterView
-          handleSwitchToLogin={() => setIsRegistering(false)}
-          handleRegistration={handleRegistration}
-        />
-      ) : (
-        <LoginView
-          handleSwitchToRegister={() => setIsRegistering(true)}
-          handleLogIn={handleLogIn}
-        />
-      )}
-    </Context.Provider>
+          <LoginView
+            handleSwitchToRegister={() => setIsRegistering(true)}
+            handleLogIn={handleLogIn}
+          />
+        )}
+      </Context.Provider>
+    </div>
   );
 }
 

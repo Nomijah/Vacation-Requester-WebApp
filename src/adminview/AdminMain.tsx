@@ -4,6 +4,8 @@ import LogoutContainer from "../logout/LogoutContainer";
 import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTopBarContainer";
 import CreateLeaveTypeContainer from "./containers/CreateLeaveTypeContainer";
 
+import "../App.css";
+
 import AdminTableContainer from "./containers/AdminTableContainer";
 import DeleteEditLeaveTypeForm from "./components/DeleteEditLeaveTypeForm";
 

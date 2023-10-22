@@ -11,7 +11,7 @@ const LoginView: React.FC<LoginViewProps> = ({
   handleLogIn,
 }) => {
   return (
-    <div>
+    <div className="login-container">
       <LoginContainer handleLogIn={handleLogIn} />
       <div className="d-flex justify-content-center mt-3">
         <button
