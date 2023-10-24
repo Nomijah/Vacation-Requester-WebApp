@@ -21,51 +21,21 @@ const StaffTable: React.FC<StaffLeaveRequestTableProps> = ({
     switch (state) {
       case 1:
         return (
-          <div
-            style={{
-              backgroundColor: "yellow",
-              padding: "5px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100px",
-              height: "30px",
-            }}
-          >
+          <span className="bg-warning rounded-2 p-2">
             <Clock color="black" size={16} /> Pending
-          </div>
+          </span>
         );
       case 2:
         return (
-          <div
-            style={{
-              backgroundColor: "green",
-              padding: "5px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100px",
-              height: "30px",
-            }}
-          >
+          <span className="bg-success rounded-2 p-2">
             <Check2Circle color="white" size={16} /> Approved
-          </div>
+          </span>
         );
       case 3:
         return (
-          <div
-            style={{
-              backgroundColor: "red",
-              padding: "5px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100px",
-              height: "30px",
-            }}
-          >
+          <span className="bg-danger rounded-2 p-2">
             <XCircle color="white" size={16} /> Rejected
-          </div>
+          </span>
         );
       default:
         return null;
