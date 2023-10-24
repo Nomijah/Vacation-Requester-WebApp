@@ -1,9 +1,6 @@
 import axios from "axios";
 
-const userLogin = (loginCredentials: {
-  email: string;
-  password: string;
-}) => {
+const userLogin = (loginCredentials: { email: string; password: string }) => {
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -15,7 +12,6 @@ const userLogin = (loginCredentials: {
         }
       )
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
