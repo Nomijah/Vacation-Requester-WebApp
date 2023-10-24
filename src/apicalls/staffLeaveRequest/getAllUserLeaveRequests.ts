@@ -3,11 +3,17 @@ import axios from "axios";
 const getAllUserLeaveRequests = (id: string) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`https://localhost:7016/leaverequest/GetLeaveRequestsById${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/LeaveRequest/GetLeaveRequestsById/${id}`, // Include ID in the path
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // Ensure cookies are sent with the request
+        }
+      )
       .then((res) => {
         console.log(res);
         console.log("Successfully fetched LeaveRequest list.");

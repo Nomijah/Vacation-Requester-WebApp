@@ -19,6 +19,17 @@ interface ILeaveRequest {
   approvalState: number; // Changed to number
 }
 
+interface IStaffLeaveRequest {
+  id: string;
+  userId: string;
+  leaveTypeId: string;
+  startDate: Date;
+  endDate: Date;
+  dateRequested: Date;
+  approvalState: number; // Stayed as number
+  leaveType: ILeaveType; // Updated to reflect the nested object structure
+}
+
 interface ILeaveRequestDto {
   userId: string;
   leaveTypeId: string;
@@ -28,6 +39,10 @@ interface ILeaveRequestDto {
 
 type LeaveRequestTableProps = {
   leaveRequests: ILeaveRequest[]; // The leave requests to display
+};
+
+type StaffLeaveRequestTableProps = {
+  leaveRequests: IStaffLeaveRequest[]; // The leave requests to display
 };
 
 interface IUser {
