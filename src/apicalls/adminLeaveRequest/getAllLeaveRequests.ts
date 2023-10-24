@@ -10,7 +10,6 @@ const getAllLeaveRequests = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
