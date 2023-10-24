@@ -1,7 +1,10 @@
+import StaffTable from "../Components/StaffTable";
+import StaffTableContainer from "./StaffTableContainer";
+
 function HomeViewContainer() {
   return (
     <div>
-      <h1>Test</h1>
+      <StaffTableContainer />
     </div>
   );
 }
