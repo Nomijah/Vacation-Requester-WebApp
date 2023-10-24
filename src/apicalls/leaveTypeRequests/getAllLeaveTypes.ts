@@ -7,10 +7,10 @@ const getAllLeaveTypes = (): Promise<ILeaveType[]> => {
       .get<ILeaveType[]>(`${import.meta.env.VITE_API_URL}/LeaveType`, {
         headers: {
           "Content-Type": "application/json",
-        },withCredentials: true,
+        },
+        withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
