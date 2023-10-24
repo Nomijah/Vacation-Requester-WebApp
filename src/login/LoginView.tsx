@@ -18,7 +18,7 @@ const LoginView: React.FC<LoginViewProps> = ({
           onClick={handleSwitchToRegister}
           className="btn btn-secondary m-3 mt-1"
         >
-          Go to Register
+          Create new user
         </button>
       </div>
     </div>
