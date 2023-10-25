@@ -6,9 +6,8 @@ import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes"
 import EditLeaveTypeForm from "../components/EditLeaveTypeForm";
 import CreateLeaveTypeContainer from "./CreateLeaveTypeContainer";
 import DeleteLeaveTypeForm from "../components/DeleteLeaveTypeForm";
-import "../../interface/InterfaceCollection";
 
-function DeleteEditLeaveTypeContainer() {
+export function DeleteEditLeaveTypeContainer() {
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
   const [selectedLeaveType, setSelectedLeaveType] = useState<ILeaveType>({
     id: "defaultID",

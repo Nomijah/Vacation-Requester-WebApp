@@ -1,4 +1,10 @@
-function DeleteLeaveTypeForm({ selectedLeaveType, handleDelete }) {
+function DeleteLeaveTypeForm({
+  selectedLeaveType,
+  handleDelete,
+}: {
+  selectedLeaveType: { type: string };
+  handleDelete: () => void;
+}) {
   return (
     <>
       <button

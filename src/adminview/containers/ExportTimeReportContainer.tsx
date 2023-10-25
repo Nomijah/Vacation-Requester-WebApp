@@ -1,8 +1,9 @@
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
-import getAllUserLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
+import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
 import DeleteEditLeaveTypeForm from "../components/DeleteEditLeaveTypeForm";
 import { useState, useEffect } from "react";
 import LeaveRequestTable from "../components/LeaveRequestTable";
+import "../../interface/InterfaceCollection";
 
 function ExportTimeReportContainer() {
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
@@ -18,12 +19,12 @@ function ExportTimeReportContainer() {
     ILeaveRequest[]
   >([]);
 
-  const [reFetch, setReFetch] = useState<boolean>(false);
+  const [reFetch] = useState<boolean>(false);
 
   useEffect(() => {
     fetchLeaveTypes();
 
-    getAllUserLeaveRequests()
+    getAllLeaveRequests()
       .then((data) => {
         setLeaveRequests(data as ILeaveRequest[]);
       })
@@ -55,11 +56,14 @@ function ExportTimeReportContainer() {
     setEndDate(date);
   };
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = event.target.value;
     const matchingLeaveType = leaveTypes.find(
       (leaveType) => leaveType.id === selectedId
     );
+    if (matchingLeaveType === undefined) {
+      return;
+    }
     setSelectedLeaveType(matchingLeaveType);
   };
 
@@ -114,7 +118,6 @@ function ExportTimeReportContainer() {
             <div className="input-group row">
               <DeleteEditLeaveTypeForm
                 leaveTypes={leaveTypes}
-                selectedLeaveType={selectedLeaveType}
                 handleSelectChange={handleSelectChange}
               />
             </div>
