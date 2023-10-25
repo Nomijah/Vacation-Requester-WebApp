@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getAllLeaveRequests = (): Promise<ILeaveRequestDto[]> => {
+const getAllLeaveRequests = (): Promise<IStaffLeaveRequestDto[]> => {
   return new Promise((resolve, reject) => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/LeaveRequest`, {
