@@ -19,6 +19,17 @@ interface ILeaveRequest {
   approvalState: number; // Changed to number
 }
 
+interface ILeaveRequestDto {
+  leaveRequestId: string;
+  userId: string;
+  employeeName: string;
+  leaveType: string;
+  startDate: Date;
+  endDate: Date;
+  dateRequested: Date;
+  approvalState: number; // Changed to number
+}
+
 interface IStaffLeaveRequest {
   id: string;
   userId: string;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import "../../interface/InterfaceCollection";
 
-const createLeaveType = (leaveType: LeaveType) => {
+const createLeaveType = (leaveType: ILeaveType) => {
   return new Promise((resolve, reject) => {
     axios
       .post(`${import.meta.env.VITE_API_URL}/LeaveType`, leaveType, {
