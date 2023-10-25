@@ -14,7 +14,7 @@ const leaveDayCounter = async (id: string, year: number) : Promise<ILeaveTypeDay
 
     leaveRequests.map((leaveRequest) => {
         // check that the leave has occured in the correct year
-        if (new Date(leaveRequest.startDate).getFullYear() === year && leaveRequest.approvalState !== 1){
+        if (new Date(leaveRequest.startDate).getFullYear() === year && leaveRequest.approvalState === 2){
 
             const leaveTypeDaysToUpdate = leaveTypeDaysArray
             .find((leaveTypeDays) => leaveTypeDays.leaveTypeId === leaveRequest.leaveTypeId)
@@ -27,7 +27,6 @@ const leaveDayCounter = async (id: string, year: number) : Promise<ILeaveTypeDay
             }
         }
     });
-    console.log(leaveTypeDaysArray);
     return leaveTypeDaysArray;
 }
 

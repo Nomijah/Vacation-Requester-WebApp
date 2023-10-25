@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Context } from "../App";
 import LogoutContainer from "../logout/LogoutContainer";
 import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTopBarContainer";
+import UserTableContainer from "./containers/UserTableContainer";
 
 import "../App.css";
 
@@ -18,6 +19,7 @@ function AdminMain() {
         <LeaveRequestTopBarContainer />
         <DeleteEditLeaveTypeContainer />
         <AdminTableContainer />
+        <UserTableContainer />
         <LogoutContainer />
       </div>
     </>

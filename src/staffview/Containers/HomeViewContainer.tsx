@@ -1,4 +1,3 @@
-import StaffTable from "../Components/StaffTable";
 import StaffTableContainer from "./StaffTableContainer";
 import LeaveDaysContainer from "./LeaveDaysContainer";
 
