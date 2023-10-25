@@ -11,7 +11,6 @@ const editLeaveType = (leaveType: LeaveType, id: string) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {

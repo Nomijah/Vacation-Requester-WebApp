@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import CreateLeaveTypeForm from "../components/CreateLeaveTypeForm";
 import createLeaveType from "../../apicalls/adminLeaveRequest/createLeaveType";
 
-function CreateLeaveTypeContainer() {
+function CreateLeaveTypeContainer({
+  setReFetch,
+  reFetch,
+}: {
+  setReFetch: (arg0: boolean) => void;
+  reFetch: boolean;
+}) {
   const [formData, setFormData] = useState({ type: "" });
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,8 +20,8 @@ function CreateLeaveTypeContainer() {
     event.preventDefault();
     // Assuming createLeaveType is an async function that creates a leave type.
     const response = await createLeaveType(formData);
+    setReFetch(!reFetch);
     // Handle the response as needed, like updating the UI or state to indicate success.
-    console.log(response); // Log the response for debugging purposes.
   };
 
   return (

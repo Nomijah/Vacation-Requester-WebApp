@@ -25,13 +25,9 @@ const editLeaveRequests = (id: string, model: ILeaveRequest) => {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(`Successfully edited LeaveRequest with id ${model.Id}`);
-
         resolve(`Successfully edited LeaveRequest with id ${model.Id}`);
       })
       .catch((err) => {
-        console.l;
         console.log(err);
         reject(err);
       });

@@ -6,7 +6,7 @@ function EditLeaveTypeForm({
   return (
     <>
       <button
-        className="btn btn-primary"
+        className="btn btn-primary rounded-bottom-0"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#collapseExample"
