@@ -9,6 +9,7 @@ import AdminTableContainer from "./containers/AdminTableContainer";
 import DeleteEditLeaveTypeContainer from "./containers/DeleteEditLeaveTypeContainer";
 import OverviewLeaveTimeTableContainer from "./containers/OverviewLeaveTimeTableContainer";
 import LeaveTypeContainer from "./containers/LeaveTypeContainer";
+import ExportTimeReportContainer from "./containers/ExportTimeReportContainer";
 function AdminMain() {
   const { user } = useContext(Context);
   return (
@@ -20,6 +21,7 @@ function AdminMain() {
         </h1>
         <OverviewLeaveTimeTableContainer />
         <LeaveRequestTopBarContainer />
+        <ExportTimeReportContainer />
         <LeaveTypeContainer />
         <AdminTableContainer />
         <LogoutContainer />

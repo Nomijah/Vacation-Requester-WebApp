@@ -1,9 +1,4 @@
-import {
-  ILeaveRequest,
-  User,
-  LeaveType,
-  ApprovalState,
-} from "../interface/InterfaceCollection"; // No need for the file extension
+import "../../interface/InterfaceCollection"; // No need for the file extension
 
 import { ArrowDownUp } from "react-bootstrap-icons";
 import React, { useState } from "react";
@@ -70,6 +65,9 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
             <th onClick={() => requestSort("dateRequested")}>
               Date Requested <ArrowDownUp color="royalblue" size={13} />
             </th>
+            <th onClick={() => requestSort("leaveType")}>
+              Leave Type <ArrowDownUp color="royalblue" size={13} />
+            </th>
             <th onClick={() => requestSort("approvalState")}>
               Approval State <ArrowDownUp color="royalblue" size={13} />
             </th>
@@ -84,6 +82,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
               <td>
                 {new Date(leaveRequest.dateRequested).toLocaleDateString()}
               </td>
+              <td>{leaveRequest.leaveType}</td>
               <td>{renderApprovalState(leaveRequest.approvalState)}</td>
             </tr>
           ))}

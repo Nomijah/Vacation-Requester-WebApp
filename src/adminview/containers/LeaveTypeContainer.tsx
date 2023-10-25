@@ -14,6 +14,11 @@ function DeleteEditLeaveTypeContainer() {
     id: "defaultID",
     type: "Choose a leave type..",
   });
+
+  const [leaveRequests, setLeaveRequest] = useState<ILeaveRequest[]>([]);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+
   const [reFetch, setReFetch] = useState<boolean>(false);
 
   useEffect(() => {
