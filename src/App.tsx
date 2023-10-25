@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
@@ -7,6 +7,7 @@ import "./interface/InterfaceCollection";
 
 import LoginView from "./login/LoginView";
 import RegisterView from "./register/RegisterView";
+import userLogin from "./apicalls/userLogin";
 
 export const Context = React.createContext<any>(undefined);
 
@@ -21,6 +22,26 @@ export function App() {
 
   const [isRegistering, setIsRegistering] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
+    const loggedInUser: IUser = JSON.parse(data);
+    console.log(loggedInUser);
+    if (loggedInUser !== null) {
+      setUser(loggedInUser);
+      setIsLoggedIn(true);
+    } else {
+      setUser({
+        id: "",
+        firstName: "",
+        lastName: "",
+        role: 0,
+        email: "",
+      });
+    }
+  }, [isLoggedIn]);
+
   const handleLogOut = (): void => {
     setUser({
       id: "",
@@ -29,6 +50,17 @@ export function App() {
       role: 0,
       email: "",
     });
+    window.localStorage.setItem(
+      "VACATION_REQUESTER_USER",
+      JSON.stringify({
+        id: "",
+        firstName: "",
+        lastName: "",
+        role: 0,
+        email: "",
+      })
+    );
+    setIsLoggedIn(false);
   };
 
   const handleLogIn = (data: IUser): void => {
@@ -39,6 +71,11 @@ export function App() {
       role: data.role,
       email: data.email,
     });
+    window.localStorage.setItem(
+      "VACATION_REQUESTER_USER",
+      JSON.stringify(data)
+    );
+    setIsLoggedIn(true);
   };
 
   const handleRegistration = (data: IUser): void => {
