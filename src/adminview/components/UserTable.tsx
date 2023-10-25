@@ -1,5 +1,3 @@
-import { ReactHTMLElement } from "react";
-
 function UserTable({
   users,
   handleClick,
