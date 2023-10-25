@@ -1,12 +1,12 @@
-import getAllUserLeaveRequests from "./getAllUserLeaveRequests";
 import getAllLeaveTypes from "../leaveTypeRequests/getAllLeaveTypes";
 import "../../interface/InterfaceCollection";
+import getAllLeaveRequests from "./getAllLeaveRequests";
 
-const leaveDayCounter = async (
-  id: string,
+const adminLeaveDayCounter = async (
   year: number
 ): Promise<ILeaveTypeDays[]> => {
-  const leaveRequests = await getAllUserLeaveRequests(id);
+  const leaveRequests = await getAllLeaveRequests();
+
   const leaveTypes = await getAllLeaveTypes();
 
   const leaveTypeDaysArray: ILeaveTypeDays[] = leaveTypes.map(
@@ -21,11 +21,11 @@ const leaveDayCounter = async (
     // check that the leave has occured in the correct year
     if (
       new Date(leaveRequest.startDate).getFullYear() === year &&
-      leaveRequest.approvalState === 2
+      leaveRequest.approvalState === 1
     ) {
       const leaveTypeDaysToUpdate = leaveTypeDaysArray.find(
         (leaveTypeDays) =>
-          leaveTypeDays.leaveTypeId === leaveRequest.leaveTypeId
+          leaveTypeDays.type === leaveRequest.leaveType
       );
       // Calculate how many days the leave request spans
       const timeSpanInMilliseconds =
@@ -44,4 +44,4 @@ const leaveDayCounter = async (
   return leaveTypeDaysArray;
 };
 
-export default leaveDayCounter;
+export default adminLeaveDayCounter;

@@ -30,7 +30,7 @@ const LeaveRequestTopBar: React.FC<LeaveRequestTopBarProps> = ({
         <div className="col p-2 m-2 border border-2 border-secondary rounded shadow-sm hover-shadow-lg bg-light">
           <Check2Circle className="text-primary mb-2" size={32} />
           <div className="font-weight-bold text-secondary">
-            Total of Requests
+            Total<br></br> Requests
           </div>
           <div className="h5 text-primary">{totalRequests}</div>
         </div>

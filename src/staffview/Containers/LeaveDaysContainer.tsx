@@ -5,7 +5,9 @@ import LeaveDaysTable from "../Components/LeaveDaysTable";
 
 function LeaveDaysContainer() {
   const { user } = useContext(Context);
-  const [leaveTypeDays, setLeaveTypeDays] = useState<ILeaveTypeDays[]>([]);
+  const [leaveTypeDays, setLeaveTypeDays] = useState<
+    ILeaveTypeDays[]
+  >([]);
 
   useEffect(() => {
     const leaveTypeDaysArrayGetter = async () => {

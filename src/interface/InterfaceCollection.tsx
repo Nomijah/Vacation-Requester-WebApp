@@ -12,7 +12,18 @@ enum ApprovalState {
 interface ILeaveRequest {
   id: string;
   userId: string;
-  leaveTypeId: string;
+  leaveType: string;
+  startDate: Date;
+  endDate: Date;
+  dateRequested: Date;
+  approvalState: number; // Changed to number
+}
+
+interface ILeaveRequestDto {
+  leaveRequestId: string;
+  userId: string;
+  employeeName: string;
+  leaveType: string;
   startDate: Date;
   endDate: Date;
   dateRequested: Date;
