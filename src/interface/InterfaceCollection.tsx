@@ -19,7 +19,7 @@ interface ILeaveRequest {
   approvalState: number; // Changed to number
 }
 
-interface ILeaveRequestDto {
+interface IStaffLeaveRequestDto {
   leaveRequestId: string;
   userId: string;
   employeeName: string;
