@@ -68,10 +68,12 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
               End Date <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th onClick={() => requestSort("dateRequested")}>
-              Date Requested <ArrowDownUp color="royalblue" size={13} />
+              Date Requested{" "}
+              <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th onClick={() => requestSort("approvalState")}>
-              Approval State <ArrowDownUp color="royalblue" size={13} />
+              Approval State{" "}
+              <ArrowDownUp color="royalblue" size={13} />
             </th>
           </tr>
         </thead>
@@ -79,12 +81,22 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
           {sortedLeaveRequests.map((leaveRequest, index) => (
             <tr key={index}>
               <td>{leaveRequest.employeeName}</td>
-              <td>{new Date(leaveRequest.startDate).toLocaleDateString()}</td>
-              <td>{new Date(leaveRequest.endDate).toLocaleDateString()}</td>
               <td>
-                {new Date(leaveRequest.dateRequested).toLocaleDateString()}
+                {new Date(
+                  leaveRequest.startDate
+                ).toLocaleDateString()}
               </td>
-              <td>{renderApprovalState(leaveRequest.approvalState)}</td>
+              <td>
+                {new Date(leaveRequest.endDate).toLocaleDateString()}
+              </td>
+              <td>
+                {new Date(
+                  leaveRequest.dateRequested
+                ).toLocaleDateString()}
+              </td>
+              <td>
+                {renderApprovalState(leaveRequest.approvalState)}
+              </td>
             </tr>
           ))}
         </tbody>

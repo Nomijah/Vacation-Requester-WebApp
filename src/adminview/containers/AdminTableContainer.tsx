@@ -1,16 +1,18 @@
 import LeaveRequestTable from "../components/LeaveRequestTable";
 import { useState, useEffect } from "react";
-import { ILeaveRequest } from "../interfaces/InterfaceCollection";
+// import "../../interfaces/InterfaceCollection";
 
 import getAllUserLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
 
 function AdminTableContainer() {
-  const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>([]);
+  const [leaveRequests, setLeaveRequests] = useState<
+    IStaffLeaveRequest[]
+  >([]);
 
   useEffect(() => {
     getAllUserLeaveRequests()
       .then((data) => {
-        setLeaveRequests(data as ILeaveRequest[]);
+        setLeaveRequests(data);
       })
       .catch((err) => console.error("An error occurred:", err));
   }, []);
