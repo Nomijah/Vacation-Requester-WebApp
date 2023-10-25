@@ -13,6 +13,7 @@ interface ILeaveRequest {
   id: string;
   userId: string;
   leaveType: string;
+  leaveTypeId: string;
   startDate: Date;
   endDate: Date;
   dateRequested: Date;
