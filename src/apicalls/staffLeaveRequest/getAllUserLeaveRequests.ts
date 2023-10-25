@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getAllUserLeaveRequests = (id: string) => {
+const getAllUserLeaveRequests = (id: string) : Promise<ILeaveRequest[]> => {
   return new Promise((resolve, reject) => {
     axios
       .get(
