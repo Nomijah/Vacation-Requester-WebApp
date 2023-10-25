@@ -7,6 +7,7 @@ import "../App.css";
 
 import AdminTableContainer from "./containers/AdminTableContainer";
 import LeaveTypeContainer from "./containers/LeaveTypeContainer";
+import ExportTimeReportContainer from "./containers/ExportTimeReportContainer";
 function AdminMain() {
   const { user } = useContext(Context);
   return (
@@ -16,6 +17,7 @@ function AdminMain() {
           <span className="text-success">Admin</span> &nbsp;{user.firstName}
         </h1>
         <LeaveRequestTopBarContainer />
+        <ExportTimeReportContainer />
         <LeaveTypeContainer />
         <AdminTableContainer />
         <LogoutContainer />

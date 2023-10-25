@@ -13,22 +13,12 @@
   flex-direction: column;
   justify-content: center;
 }
-/* body {
-  background-image: url("https://www.wallpaperuse.com/wallp/25-256313_m.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-} */
+
 .admin-page {
+  width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  width: 100vh;
   padding: 3rem;
   box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.2),
     0px 0px 100px 0px rgba(0, 0, 0, 0.2);
