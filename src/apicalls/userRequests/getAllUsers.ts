@@ -1,20 +1,21 @@
 import axios from "axios";
 
-const getAllUserLeaveRequests = (id: string) : Promise<ILeaveRequest[]> => {
+const getAllUsers = () : Promise<IUser[]> => {
   return new Promise((resolve, reject) => {
     axios
       .get(
         `${
           import.meta.env.VITE_API_URL
-        }/LeaveRequest/GetLeaveRequestsById/${id}`, // Include ID in the path
+        }/User`,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true, // Ensure cookies are sent with the request
+          withCredentials: true,
         }
       )
       .then((res) => {
+        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
@@ -24,4 +25,4 @@ const getAllUserLeaveRequests = (id: string) : Promise<ILeaveRequest[]> => {
   });
 };
 
-export default getAllUserLeaveRequests;
+export default getAllUsers;
