@@ -1,17 +1,16 @@
 import axios from "axios";
 import "../../interface/InterfaceCollection";
 
-const createLeaveType = (leaveType: LeaveType) => {
+const editLeaveType = (leaveType: LeaveType, id: string) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${import.meta.env.VITE_API_URL}/LeaveType`, leaveType, {
+      .put(`${import.meta.env.VITE_API_URL}/LeaveType/${id}`, leaveType, {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
@@ -21,4 +20,4 @@ const createLeaveType = (leaveType: LeaveType) => {
   });
 };
 
-export default createLeaveType;
+export default editLeaveType;

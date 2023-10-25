@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import DeleteEditLeaveTypeForm from "../components/DeleteEditLeaveTypeForm";
-import deleteLeaveType from "../../apicalls/adminLeaveRequest/deleteLeaveType";
-import editLeaveType from "../../apicalls/adminLeaveRequest/editLeaveType";
+import deleteLeaveType from "../../apicalls/leaveTypeRequests/deleteLeaveType";
+import editLeaveType from "../../apicalls/leaveTypeRequests/editLeaveType";
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
 import EditLeaveTypeForm from "../components/EditLeaveTypeForm";
 import CreateLeaveTypeContainer from "./CreateLeaveTypeContainer";
+import DeleteLeaveTypeForm from "../components/DeleteLeaveTypeForm";
 import "../../interface/InterfaceCollection";
 
 function DeleteEditLeaveTypeContainer() {
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
   const [selectedLeaveType, setSelectedLeaveType] = useState<ILeaveType>({
     id: "defaultID",
-    type: "defaultType",
+    type: "Choose a leave type..",
   });
+  const [reFetch, setReFetch] = useState<boolean>(false);
 
   useEffect(() => {
     fetchLeaveTypes();
-  }, []);
+  }, [reFetch]);
 
   const fetchLeaveTypes = async () => {
     try {
@@ -33,7 +35,6 @@ function DeleteEditLeaveTypeContainer() {
       (leaveType) => leaveType.id === selectedId
     );
     setSelectedLeaveType(matchingLeaveType);
-    console.log("handleSelectChange = ", matchingLeaveType);
   };
 
   const handleEditFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,27 +48,23 @@ function DeleteEditLeaveTypeContainer() {
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("HANDLEONSUBMIT");
-    console.log(selectedLeaveType.id);
-    console.log(selectedLeaveType.type);
-    console.log("HANDLEONSUBMIT");
     try {
       const response = await editLeaveType(
         selectedLeaveType,
         selectedLeaveType.id
       );
-      console.log(response);
-      fetchLeaveTypes(); // Refresh the list after editing
+      setReFetch(!reFetch);
+      // fetchLeaveTypes(); // Refresh the list after editing
     } catch (error) {
       console.error("Failed to edit leave type", error);
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       // Assuming deleteLeaveType needs the ID of the leaveType to be deleted
-      const response = await deleteLeaveType(selectedLeaveType);
-      console.log(response);
+      const response = await deleteLeaveType(selectedLeaveType.id);
       fetchLeaveTypes(); // Refresh the list after deletion
     } catch (error) {
       console.error("Failed to delete leave type", error);
@@ -76,9 +73,9 @@ function DeleteEditLeaveTypeContainer() {
   return (
     <>
       <div className="container mt-5 w-50 border p-2">
-        <h4 className="mb-3">Delete or Edit Leave Type</h4>
+        <h4 className="mb-3">Leave Type Management</h4>
 
-        <CreateLeaveTypeContainer />
+        <CreateLeaveTypeContainer setReFetch={setReFetch} reFetch={reFetch} />
         <DeleteEditLeaveTypeForm
           leaveTypes={leaveTypes}
           selectedLeaveType={selectedLeaveType}
@@ -91,7 +88,10 @@ function DeleteEditLeaveTypeContainer() {
             handleEditFormChange={handleEditFormChange}
             handleOnSubmit={handleOnSubmit}
           />
-          <button className="btn btn-danger">Delete</button>
+          <DeleteLeaveTypeForm
+            selectedLeaveType={selectedLeaveType}
+            handleDelete={handleDelete}
+          />
         </div>
       </div>
     </>

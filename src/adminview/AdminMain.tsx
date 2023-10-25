@@ -8,6 +8,7 @@ import "../App.css";
 import AdminTableContainer from "./containers/AdminTableContainer";
 import DeleteEditLeaveTypeContainer from "./containers/DeleteEditLeaveTypeContainer";
 import OverviewLeaveTimeTableContainer from "./containers/OverviewLeaveTimeTableContainer";
+import LeaveTypeContainer from "./containers/LeaveTypeContainer";
 function AdminMain() {
   const { user } = useContext(Context);
   return (
@@ -19,7 +20,7 @@ function AdminMain() {
         </h1>
         <OverviewLeaveTimeTableContainer />
         <LeaveRequestTopBarContainer />
-        <DeleteEditLeaveTypeContainer />
+        <LeaveTypeContainer />
         <AdminTableContainer />
         <LogoutContainer />
       </div>

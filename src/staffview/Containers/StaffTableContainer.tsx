@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 // import { IStaffLeaveRequest } from "../../interface/InterfaceCollection";
 import "../../interface/InterfaceCollection";
 import getAllUserLeaveRequests from "../../apicalls/staffLeaveRequest/getAllUserLeaveRequests";
@@ -7,9 +7,7 @@ import { Context } from "../../App"; // make sure to import Context from the cor
 
 function StaffTableContainer() {
   const { user } = useContext(Context);
-  const [leaveRequests, setLeaveRequests] = useState<
-    IStaffLeaveRequest[]
-  >([]);
+  const [leaveRequests, setLeaveRequests] = useState<IStaffLeaveRequest[]>([]);
 
   useEffect(() => {
     if (user && user.id) {
