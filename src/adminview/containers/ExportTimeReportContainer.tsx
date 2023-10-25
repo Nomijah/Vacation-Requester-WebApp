@@ -3,6 +3,8 @@ import getAllUserLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeav
 import DeleteEditLeaveTypeForm from "../components/DeleteEditLeaveTypeForm";
 import { useState, useEffect } from "react";
 import LeaveRequestTable from "../components/LeaveRequestTable";
+import SelectTimeWithTypeForm from "../components/SelectTimeWithTypeForm";
+import TimeExportButtons from "../components/TimeExportButtons";
 
 function ExportTimeReportContainer() {
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
@@ -84,52 +86,42 @@ function ExportTimeReportContainer() {
     }
     setFilteredLeaveRequests(filteredRequests);
   }
+
+  const handleExportButtonClick = () => {
+    const lines = filteredLeaveRequests.map((request) => {
+      return `${request.employeeName} - ${request.leaveType} - ${request.dateRequested} -  ${request.startDate} - ${request.startDate} - ${request.approvalState}`;
+    });
+
+    const data = lines.join("\n");
+
+    const blob = new Blob([data], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    if (window.confirm("Are you sure you want to download the time report?")) {
+      const link = document.createElement("a");
+      link.download = "time-report.txt";
+      link.href = url;
+      link.click();
+    }
+  };
+
   return (
     <div className="container m-5">
       <div className="row d-flex justify-content-center">
         <div className="col-md-6 border pt-2">
           <h2>Export Time Report</h2>
-          <div className="input-group mb-3">
-            <div className="input-group">
-              <label className="input-group-text" htmlFor="">
-                Start Date
-              </label>
-              <input
-                onChange={handleStartDateChange}
-                type="date"
-                className="form-control"
-                value={startDate.toISOString().substr(0, 10)}
-              />
-            </div>
-            <div className="input-group">
-              <label className="input-group-text" htmlFor="">
-                End Date
-              </label>
-              <input
-                onChange={handleEndDateChange}
-                type="date"
-                className="form-control"
-              />
-            </div>
-            <div className="input-group row">
-              <DeleteEditLeaveTypeForm
-                leaveTypes={leaveTypes}
-                selectedLeaveType={selectedLeaveType}
-                handleSelectChange={handleSelectChange}
-              />
-            </div>
-          </div>
-          <div className="">
-            <button
-              onClick={filterLeaveRequests}
-              className="btn btn-primary rounded-end-0"
-            >
-              Find requests
-            </button>
-            <button className="btn btn-warning rounded-start-0">
-              Export Data
-            </button>
-          </div>
+          <SelectTimeWithTypeForm
+            leaveTypes={leaveTypes}
+            selectedLeaveType={selectedLeaveType}
+            handleStartDateChange={handleStartDateChange}
+            startDate={startDate}
+            handleEndDateChange={handleEndDateChange}
+            handleSelectChange={handleSelectChange}
+          />
+          <TimeExportButtons
+            filterLeaveRequests={filterLeaveRequests}
+            handleExportButtonClick={handleExportButtonClick}
+          />
         </div>
       </div>
       <div className="row mt-3">
