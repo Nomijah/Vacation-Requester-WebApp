@@ -1,17 +1,16 @@
 import axios from "axios";
 import "../../interface/InterfaceCollection";
 
-const deleteLeaveType = (leaveType: LeaveType) => {
+const deleteLeaveType = (leaveTypeId: string) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${import.meta.env.VITE_API_URL}/LeaveType`, leaveType, {
+      .delete(`${import.meta.env.VITE_API_URL}/LeaveType/${leaveTypeId}`, {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {

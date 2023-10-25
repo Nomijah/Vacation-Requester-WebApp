@@ -6,7 +6,7 @@ import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTop
 import "../App.css";
 
 import AdminTableContainer from "./containers/AdminTableContainer";
-import DeleteEditLeaveTypeContainer from "./containers/DeleteEditLeaveTypeContainer";
+import LeaveTypeContainer from "./containers/LeaveTypeContainer";
 function AdminMain() {
   const { user } = useContext(Context);
   return (
@@ -16,7 +16,7 @@ function AdminMain() {
           <span className="text-success">Admin</span> &nbsp;{user.firstName}
         </h1>
         <LeaveRequestTopBarContainer />
-        <DeleteEditLeaveTypeContainer />
+        <LeaveTypeContainer />
         <AdminTableContainer />
         <LogoutContainer />
       </div>

@@ -9,7 +9,7 @@ function DeleteEditLeaveTypeForm({
 }) {
   return (
     <>
-      <label className="mb-1">Edit / Delete Leave Type</label>
+      <label className="mb-1">Select Leave Type</label>
       <select
         name="leaveTypeId"
         className="form-select"

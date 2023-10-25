@@ -11,7 +11,6 @@ const createLeaveType = (leaveType: LeaveType) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
