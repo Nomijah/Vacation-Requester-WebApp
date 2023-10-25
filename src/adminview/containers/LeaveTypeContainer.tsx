@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DeleteEditLeaveTypeForm from "../components/DeleteEditLeaveTypeForm";
-import deleteLeaveType from "../../apicalls/adminLeaveRequest/deleteLeaveType";
-import editLeaveType from "../../apicalls/adminLeaveRequest/editLeaveType";
+import deleteLeaveType from "../../apicalls/leaveTypeRequests/deleteLeaveType";
+import editLeaveType from "../../apicalls/leaveTypeRequests/editLeaveType";
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
 import EditLeaveTypeForm from "../components/EditLeaveTypeForm";
 import CreateLeaveTypeContainer from "./CreateLeaveTypeContainer";

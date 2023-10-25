@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreateLeaveTypeForm from "../components/CreateLeaveTypeForm";
-import createLeaveType from "../../apicalls/adminLeaveRequest/createLeaveType";
+import createLeaveType from "../../apicalls/leaveTypeRequests/createLeaveType";
 
 function CreateLeaveTypeContainer({
   setReFetch,
