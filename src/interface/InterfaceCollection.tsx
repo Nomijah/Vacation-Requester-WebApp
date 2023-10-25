@@ -52,3 +52,9 @@ interface IUser {
   role: number;
   email: string;
 }
+
+interface ILeaveTypeDays {
+  leaveTypeId: string;
+  type: string;
+  days: number;
+}
