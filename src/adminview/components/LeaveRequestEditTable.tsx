@@ -5,18 +5,28 @@ import React, { useState } from "react";
 import "./LeaveRequestTable.css";
 import EditRowLeaveRequestForm from "./EditRowLeaveRequestForm";
 
-const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
+const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   leaveRequests,
   handleClickEdit,
   handleChangeApprovalState,
   handleSelectChange,
   leaveTypes,
+  startDate,
+  endDate,
+  handleStartDateChange,
+  handleEndDateChange,
+  handleOnSubmit,
 }: {
   handleClickEdit: (id: string) => void;
   leaveRequests: ILeaveRequest[];
   handleChangeApprovalState: (leaveRequest: ILeaveRequest) => void;
   handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   leaveTypes: ILeaveType[];
+  startDate: Date;
+  endDate: Date;
+  handleStartDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleEndDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -109,9 +119,9 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
                 <td>
                   {new Date(leaveRequest.dateRequested).toLocaleDateString()}
                 </td>
+                <td>{leaveRequest.leaveType}</td>
                 <td>{renderApprovalState(leaveRequest.approvalState)}</td>
 
-                <td>{leaveRequest.leaveType}</td>
                 <td>
                   <button
                     onClick={() => toggleRow(index)}
@@ -133,6 +143,11 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
                 index={index}
                 openRows={openRows}
                 isActive={activeRowIndex === index}
+                startDate={startDate}
+                endDate={endDate}
+                handleStartDateChange={handleStartDateChange}
+                handleEndDateChange={handleEndDateChange}
+                handleOnSubmit={handleOnSubmit}
               />
             </>
           ))}
@@ -142,4 +157,4 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
   );
 };
 
-export default LeaveRequestTable;
+export default LeaveRequestEditTable;

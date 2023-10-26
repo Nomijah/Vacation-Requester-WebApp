@@ -4,7 +4,10 @@ function SelectApprovalState(
 ) {
   return (
     <div>
-      <select onChange={(event) => handleChangeApprovalState(leaveRequest)}>
+      <select
+        className="form-select"
+        onChange={(event) => handleChangeApprovalState(leaveRequest)}
+      >
         <option defaultValue="test" value={1}>
           Pending
         </option>

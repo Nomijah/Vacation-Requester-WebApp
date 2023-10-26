@@ -9,6 +9,11 @@ function EditRowLeaveRequestForm({
   index,
   openRows,
   isActive,
+  startDate,
+  endDate,
+  handleStartDateChange,
+  handleEndDateChange,
+  handleOnSubmit,
 }: {
   leaveRequest: ILeaveRequest;
   leaveTypes?: ILeaveType[];
@@ -19,6 +24,11 @@ function EditRowLeaveRequestForm({
   index: number;
   openRows: Record<number, boolean>;
   isActive: boolean;
+  startDate: Date;
+  endDate: Date;
+  handleStartDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleEndDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }) {
   return (
     <Collapse in={openRows[index] || false}>
@@ -26,7 +36,7 @@ function EditRowLeaveRequestForm({
         className={`border-2 border-success ${isActive ? "show" : "collapse"}`}
         id={`collapseEditRow-${index}`}
       >
-        <td className="bg-dark-subtle">
+        <td className="bg-dark-subtle grow-0  ">
           <input
             type="text"
             readOnly
@@ -34,23 +44,23 @@ function EditRowLeaveRequestForm({
             className="form-control"
           />
         </td>
-        <td className="bg-dark-subtle">
+        <td className="bg-dark-subtle grow-0">
           <input
-            readOnly
+            onChange={handleStartDateChange}
             type="date"
-            value={new Date(leaveRequest.startDate).toISOString().substr(0, 10)}
+            value={startDate.toISOString()}
             className="form-control"
           />
         </td>
-        <td className="bg-dark-subtle">
+        <td className="bg-dark-subtle grow-0">
           <input
-            readOnly
+            onChange={handleEndDateChange}
             type="date"
-            value={new Date(leaveRequest.endDate).toISOString().substr(0, 10)}
+            value={endDate.toISOString()}
             className="form-control"
           />
         </td>
-        <td className="bg-dark-subtle">
+        <td className="bg-dark-subtle grow-0">
           <input
             readOnly
             type="date"
@@ -60,21 +70,24 @@ function EditRowLeaveRequestForm({
             className="form-control"
           />
         </td>
-        <td className="bg-dark-subtle">
-          <SelectApprovalState
-            handleSelectChangeApprovalState={handleChangeApprovalState}
-            className="form-select"
-          />
-        </td>
-        <td className="bg-dark-subtle">
+        <td className="bg-dark-subtle grow-0 ">
           <DeleteEditLeaveTypeForm
             leaveTypes={leaveTypes}
             handleSelectChange={handleSelectChange}
             className="form-select"
           />
         </td>
-        <td className="bg-dark-subtle">
-          <button className="btn btn-success">Submit</button>
+        <td className="bg-dark-subtle grow-0">
+          <SelectApprovalState
+            handleSelectChangeApprovalState={handleChangeApprovalState}
+            className="form-select"
+          />
+        </td>
+
+        <td className="bg-dark-subtle grow-0">
+          <button onClick={handleOnSubmit} className="btn btn-success">
+            Submit
+          </button>
         </td>
       </tr>
     </Collapse>

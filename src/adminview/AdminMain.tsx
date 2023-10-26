@@ -3,12 +3,10 @@ import { Context } from "../App";
 import LogoutContainer from "../logout/LogoutContainer";
 import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTopBarContainer";
 import UserTableContainer from "./containers/UserTableContainer";
-import LeaveRequestContainer from "./containers/LeaveRequestContainer";
 
 import "../App.css";
 
 import AdminTableContainer from "./containers/AdminTableContainer";
-import DeleteEditLeaveTypeContainer from "./containers/DeleteEditLeaveTypeContainer";
 import OverviewLeaveTimeTableContainer from "./containers/OverviewLeaveTimeTableContainer";
 import LeaveTypeContainer from "./containers/DeleteEditLeaveTypeContainer";
 import ExportTimeReportContainer from "./containers/ExportTimeReportContainer";
