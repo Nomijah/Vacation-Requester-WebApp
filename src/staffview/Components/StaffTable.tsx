@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowDownUp, Trash } from "react-bootstrap-icons";
 import { Clock, Check2Circle, XCircle } from "react-bootstrap-icons";
+import DeleteButtonStaff from "./DeleteButtonStaff";
 
 interface StaffLeaveRequestTableProps {
   leaveRequests: IStaffLeaveRequest[];
@@ -118,14 +119,11 @@ const StaffTable: React.FC<StaffLeaveRequestTableProps> = ({
                 {renderApprovalState(leaveRequest.approvalState)}
               </td>
               <td>
-                {leaveRequest.approvalState === 1 && ( // Check if approvalState is "Pending"
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => onDelete(leaveRequest.id)}
-                  >
-                    <Trash color="white" size={16} />
-                  </button>
-                )}
+                <DeleteButtonStaff
+                  approvalState={leaveRequest.approvalState}
+                  onDelete={onDelete}
+                  id={leaveRequest.id}
+                />
               </td>
             </tr>
           ))}

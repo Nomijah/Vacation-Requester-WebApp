@@ -9,6 +9,12 @@ enum ApprovalState {
   "Rejected" = 3, // Assuming 3 maps to "Rejected"
 }
 
+interface DeleteButtonProps {
+  approvalState: number;
+  onDelete: (id: string) => void;
+  id: string;
+}
+
 interface ILeaveRequest {
   id: string;
   userId: string;
