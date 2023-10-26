@@ -2,16 +2,66 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
-
 import "./interface/InterfaceCollection";
-
 import LoginView from "./login/LoginView";
 import RegisterView from "./register/RegisterView";
-import userLogin from "./apicalls/userLogin";
+import tokenRenewal from "./apicalls/tokenRenewal";
 
 export const Context = React.createContext<any>(undefined);
 
 export function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(true);
+  const [userActivity, setUserActivity] = useState(true);
+  const [timerTrigger, setTimerTrigger] = useState(true);
+
+  const refreshTriggerFunc = () => {
+    setRefreshTrigger(!refreshTrigger);
+  };
+
+  useEffect(() => {
+    const minute = 1000 * 60;
+    setTimeout(refreshTriggerFunc, minute * 12);
+  }, [timerTrigger]);
+
+  useEffect(() => {
+    if (isLoggedIn && userActivity) {
+      tokenRenewal();
+      setUserActivity(false);
+      setTimerTrigger(!timerTrigger);
+    } else {
+      handleLogOut();
+    }
+  }, [refreshTrigger]);
+
+  function debounce(func: any, delay: any) {
+    let timeoutId: number;
+
+    return function (...args: any[]) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
+
+  // Delay the time until next execution to not overflow the system with constant functions running when user is active.
+  const debouncedUserActivity = debounce(() => setUserActivity(true), 1000); // 1000 milliseconds (1 second) delay
+
+  useEffect(() => {
+    window.addEventListener("click", debouncedUserActivity);
+    window.addEventListener("keypress", debouncedUserActivity);
+    window.addEventListener("scroll", debouncedUserActivity);
+    window.addEventListener("mousemove", debouncedUserActivity);
+
+    return () => {
+      window.removeEventListener("click", debouncedUserActivity);
+      window.removeEventListener("keypress", debouncedUserActivity);
+      window.removeEventListener("scroll", debouncedUserActivity);
+      window.removeEventListener("mousemove", debouncedUserActivity);
+    };
+  }, [isLoggedIn]);
+
   const [user, setUser] = useState<IUser>({
     id: "",
     firstName: "",
@@ -22,15 +72,22 @@ export function App() {
 
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
     const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
-    const loggedInUser: IUser = JSON.parse(data);
-    console.log(loggedInUser);
-    if (loggedInUser !== null) {
-      setUser(loggedInUser);
-      setIsLoggedIn(true);
+    if (data) {
+      const loggedInUser: IUser = JSON.parse(data);
+      if (loggedInUser !== null) {
+        setUser(loggedInUser);
+        setIsLoggedIn(true);
+      } else {
+        setUser({
+          id: "",
+          firstName: "",
+          lastName: "",
+          role: 0,
+          email: "",
+        });
+      }
     } else {
       setUser({
         id: "",
@@ -50,16 +107,7 @@ export function App() {
       role: 0,
       email: "",
     });
-    window.localStorage.setItem(
-      "VACATION_REQUESTER_USER",
-      JSON.stringify({
-        id: "",
-        firstName: "",
-        lastName: "",
-        role: 0,
-        email: "",
-      })
-    );
+    window.localStorage.removeItem("VACATION_REQUESTER_USER");
     setIsLoggedIn(false);
   };
 
@@ -76,6 +124,7 @@ export function App() {
       JSON.stringify(data)
     );
     setIsLoggedIn(true);
+    setRefreshTrigger(!refreshTrigger);
   };
 
   const handleRegistration = (data: IUser): void => {
