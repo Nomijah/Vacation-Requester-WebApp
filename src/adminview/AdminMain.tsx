@@ -3,6 +3,7 @@ import { Context } from "../App";
 import LogoutContainer from "../logout/LogoutContainer";
 import LeaveRequestTopBarContainer from "../staffview/Containers/LeaveRequestTopBarContainer";
 import UserTableContainer from "./containers/UserTableContainer";
+import LeaveRequestContainer from "./containers/LeaveRequestContainer";
 
 import "../App.css";
 

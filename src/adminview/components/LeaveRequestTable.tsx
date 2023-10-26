@@ -3,14 +3,38 @@ import "../../interface/InterfaceCollection"; // No need for the file extension
 import { ArrowDownUp } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import "./LeaveRequestTable.css";
+import EditRowLeaveRequestForm from "./EditRowLeaveRequestForm";
 
 const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
   leaveRequests,
+  handleClickEdit,
+  handleChangeApprovalState,
+  handleSelectChange,
+  leaveTypes,
+}: {
+  handleClickEdit: (id: string) => void;
+  leaveRequests: ILeaveRequest[];
+  handleChangeApprovalState: (leaveRequest: ILeaveRequest) => void;
+  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  leaveTypes: ILeaveType[];
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "none",
   });
+  const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
+  const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
+
+  const toggleRow = (index: number) => {
+    if (activeRowIndex === index) {
+      // Close the active row if it's clicked again
+      setActiveRowIndex(null);
+    } else {
+      // Set the clicked row as the active row
+      setActiveRowIndex(index);
+    }
+  };
+
   const renderApprovalState = (state: number) => {
     switch (state) {
       case 1:
@@ -48,6 +72,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
       return 0;
     });
   }
+  let counter = 0;
   return (
     <div>
       <table className="table mt-4">
@@ -63,43 +88,53 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
               End Date <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th onClick={() => requestSort("dateRequested")}>
-              Date Requested{" "}
-              <ArrowDownUp color="royalblue" size={13} />
+              Date Requested <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th onClick={() => requestSort("leaveType")}>
               Leave Type <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th onClick={() => requestSort("approvalState")}>
-              Approval State{" "}
-              <ArrowDownUp color="royalblue" size={13} />
+              Approval State <ArrowDownUp color="royalblue" size={13} />
             </th>
           </tr>
         </thead>
         <tbody>
           {sortedLeaveRequests.map((leaveRequest, index) => (
-            <tr key={index}>
-              <td>{leaveRequest.employeeName}</td>
-              <td>
-                {new Date(
-                  leaveRequest.startDate
-                ).toLocaleDateString()}
-              </td>
-              <td>
-                {new Date(leaveRequest.endDate).toLocaleDateString()}
-              </td>
-              <td>
-                {new Date(
-                  leaveRequest.dateRequested
-                ).toLocaleDateString()}
-              </td>
-              <td>
-                {renderApprovalState(leaveRequest.approvalState)}
-              </td>
+            <>
+              {counter++}
+              <tr className="" key={index}>
+                <td>{leaveRequest.employeeName}</td>
+                <td>{new Date(leaveRequest.startDate).toLocaleDateString()}</td>
+                <td>{new Date(leaveRequest.endDate).toLocaleDateString()}</td>
+                <td>
+                  {new Date(leaveRequest.dateRequested).toLocaleDateString()}
+                </td>
+                <td>{renderApprovalState(leaveRequest.approvalState)}</td>
 
-              <td>{leaveRequest.leaveType}</td>
-              <td>{renderApprovalState(leaveRequest.approvalState)}</td>
-
-            </tr>
+                <td>{leaveRequest.leaveType}</td>
+                <td>
+                  <button
+                    onClick={() => toggleRow(index)}
+                    className="btn btn-warning"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapseEditRow-${index}`}
+                    aria-expanded={activeRowIndex === index}
+                    aria-controls={`collapseEditRow-${index}`}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+              <EditRowLeaveRequestForm
+                handleChangeApprovalState={handleChangeApprovalState}
+                leaveRequest={leaveRequest}
+                handleSelectChange={handleSelectChange}
+                leaveTypes={leaveTypes}
+                index={index}
+                openRows={openRows}
+                isActive={activeRowIndex === index}
+              />
+            </>
           ))}
         </tbody>
       </table>

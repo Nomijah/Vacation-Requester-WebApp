@@ -19,7 +19,7 @@ function CreateLeaveTypeContainer({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Assuming createLeaveType is an async function that creates a leave type.
-    const response = await createLeaveType(formData);
+    await createLeaveType(formData);
     setReFetch(!reFetch);
     // Handle the response as needed, like updating the UI or state to indicate success.
   };

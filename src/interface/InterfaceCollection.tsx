@@ -11,6 +11,7 @@ enum ApprovalState {
 
 interface ILeaveRequest {
   id: string;
+  employeeName: string;
   userId: string;
   leaveType: string;
   leaveTypeId: string;
