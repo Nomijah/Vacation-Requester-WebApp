@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import AdminMain from "./adminview/AdminMain";
 import StaffMain from "./staffview/StaffMain";
@@ -6,6 +6,7 @@ import "./interface/InterfaceCollection";
 import LoginView from "./login/LoginView";
 import RegisterView from "./register/RegisterView";
 import tokenRenewal from "./apicalls/tokenRenewal";
+import useDidMountEffect from "./useDidMountEffect";
 
 export const Context = React.createContext<any>(undefined);
 
@@ -14,6 +15,40 @@ export function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(true);
   const [userActivity, setUserActivity] = useState(true);
   const [timerTrigger, setTimerTrigger] = useState(true);
+  const [user, setUser] = useState<IUser>({
+    id: "",
+    firstName: "",
+    lastName: "",
+    role: 0,
+    email: "",
+  });
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
+    if (data) {
+      const loggedInUser: IUser = JSON.parse(data);
+      if (loggedInUser !== null) {
+        setUser(loggedInUser);
+        setIsLoggedIn(true);
+      } else {
+        setUser({
+          id: "",
+          firstName: "",
+          lastName: "",
+          role: 0,
+          email: "",
+        });
+      }
+    } else {
+      setUser({
+        id: "",
+        firstName: "",
+        lastName: "",
+        role: 0,
+        email: "",
+      });
+    }
+  }, [isLoggedIn]);
 
   const refreshTriggerFunc = () => {
     setRefreshTrigger(!refreshTrigger);
@@ -24,7 +59,8 @@ export function App() {
     setTimeout(refreshTriggerFunc, minute * 12);
   }, [timerTrigger]);
 
-  useEffect(() => {
+  // useDidMountEffect to not render on refresh
+  useDidMountEffect(() => {
     if (isLoggedIn && userActivity) {
       tokenRenewal();
       setUserActivity(false);
@@ -62,42 +98,7 @@ export function App() {
     };
   }, [isLoggedIn]);
 
-  const [user, setUser] = useState<IUser>({
-    id: "",
-    firstName: "",
-    lastName: "",
-    role: 0,
-    email: "",
-  });
-
   const [isRegistering, setIsRegistering] = useState(false);
-
-  useEffect(() => {
-    const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
-    if (data) {
-      const loggedInUser: IUser = JSON.parse(data);
-      if (loggedInUser !== null) {
-        setUser(loggedInUser);
-        setIsLoggedIn(true);
-      } else {
-        setUser({
-          id: "",
-          firstName: "",
-          lastName: "",
-          role: 0,
-          email: "",
-        });
-      }
-    } else {
-      setUser({
-        id: "",
-        firstName: "",
-        lastName: "",
-        role: 0,
-        email: "",
-      });
-    }
-  }, [isLoggedIn]);
 
   const handleLogOut = (): void => {
     setUser({
@@ -107,6 +108,7 @@ export function App() {
       role: 0,
       email: "",
     });
+    console.log("Nu tas local storage bort");
     window.localStorage.removeItem("VACATION_REQUESTER_USER");
     setIsLoggedIn(false);
   };
