@@ -41,7 +41,7 @@ function ApplyViewContainer({
   };
 
   return (
-    <div className="container-fluid bg-light-subtle border border-dark-subtle">
+    <div className="container-fluid bg-light-subtle border border-dark-subtle rounded">
       <ApplyForm
         leaveTypes={leaveTypes}
         handleChange={handleChange}

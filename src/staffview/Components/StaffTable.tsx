@@ -73,40 +73,61 @@ const StaffTable: React.FC<StaffLeaveRequestTableProps> = ({
   }
 
   return (
-    <div>
+    <div className="container-fluid bg-light-subtle border border-dark-subtle rounded mt-3">
       <h2 className="ms-2 mt-3">Your Leave Requests</h2>
       <table className="table mt-4">
         <thead>
           <tr className="border-1">
-            <th onClick={() => requestSort("leaveTypeName")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("leaveTypeName")}
+            >
               Leave Type <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("startDate")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("startDate")}
+            >
               Start Date <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("endDate")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("endDate")}
+            >
               End Date <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("dateRequested")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("dateRequested")}
+            >
               Date Requested <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("approvalState")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("approvalState")}
+            >
               Approval State <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th>Action</th>
+            <th className="bg-dark-subtle">Action</th>
           </tr>
         </thead>
         <tbody>
           {sortedLeaveRequests.map((leaveRequest, index) => (
-            <tr key={index}>
-              <td>{leaveRequest.leaveType.type}</td>
-              <td>{new Date(leaveRequest.startDate).toLocaleDateString()}</td>
-              <td>{new Date(leaveRequest.endDate).toLocaleDateString()}</td>
-              <td>
+            <tr className="align-middle" key={index}>
+              <td className="bg-light-subtle">{leaveRequest.leaveType.type}</td>
+              <td className="bg-light-subtle">
+                {new Date(leaveRequest.startDate).toLocaleDateString()}
+              </td>
+              <td className="bg-light-subtle">
+                {new Date(leaveRequest.endDate).toLocaleDateString()}
+              </td>
+              <td className="bg-light-subtle">
                 {new Date(leaveRequest.dateRequested).toLocaleDateString()}
               </td>
-              <td>{renderApprovalState(leaveRequest.approvalState)}</td>
-              <td>
+              <td className="bg-light-subtle">
+                {renderApprovalState(leaveRequest.approvalState)}
+              </td>
+              <td className="bg-light-subtle">
                 <DeleteButtonStaff
                   approvalState={leaveRequest.approvalState}
                   onDelete={onDelete}
