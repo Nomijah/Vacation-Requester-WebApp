@@ -4,6 +4,7 @@ import { Context } from "../../App";
 import ApplyForm from "../Components/ApplyForm";
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
 import postLeaveRequest from "../../apicalls/staffLeaveRequest/postLeaveRequest";
+import { isEndDateValid } from "../../validation/isEndDateValid";
 
 function ApplyViewContainer({
   setViewState,
@@ -33,8 +34,14 @@ function ApplyViewContainer({
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.ChangeEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
+    if (!isEndDateValid(formData.startDate, formData.endDate)) {
+      alert("End date cannot be earlier than start date.");
+      return;
+    }
     await postLeaveRequest(formData);
     alert("Leave request created.");
     setViewState("home");

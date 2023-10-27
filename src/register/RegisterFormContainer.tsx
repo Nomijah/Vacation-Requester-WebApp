@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RegisterForm from "./RegisterForm";
 import userRegister from "../apicalls/Register/userRegister";
+import { validateRegisterForm } from "../validation/validateRegisterForm";
 
 function RegisterFormContainer({
   handleRegistration,
@@ -25,6 +26,11 @@ function RegisterFormContainer({
     event: React.ChangeEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+    const errors = validateRegisterForm(formData);
+    if (errors.length > 0) {
+      alert(errors.join("\n"));
+      return;
+    }
     const userData: any = await userRegister(formData);
     handleRegistration(userData);
   };
