@@ -56,11 +56,13 @@ export function App() {
 
   useEffect(() => {
     const minute = 1000 * 60;
+    console.log("timer startas om");
     setTimeout(refreshTriggerFunc, minute * 12);
   }, [timerTrigger]);
 
   // useDidMountEffect to not render on refresh
   useDidMountEffect(() => {
+    console.log("useDidMount körs");
     if (isLoggedIn && userActivity) {
       tokenRenewal();
       setUserActivity(false);
@@ -82,7 +84,10 @@ export function App() {
   }
 
   // Delay the time until next execution to not overflow the system with constant functions running when user is active.
-  const debouncedUserActivity = debounce(() => setUserActivity(true), 1000); // 1000 milliseconds (1 second) delay
+  const debouncedUserActivity = debounce(() => {
+    setUserActivity(true);
+    console.log("setUserActivit körs");
+  }, 1000); // 1000 milliseconds (1 second) delay
 
   useEffect(() => {
     window.addEventListener("click", debouncedUserActivity);
@@ -96,7 +101,7 @@ export function App() {
       window.removeEventListener("scroll", debouncedUserActivity);
       window.removeEventListener("mousemove", debouncedUserActivity);
     };
-  }, [isLoggedIn]);
+  }, [refreshTrigger]);
 
   const [isRegistering, setIsRegistering] = useState(false);
 
