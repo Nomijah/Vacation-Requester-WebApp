@@ -9,7 +9,7 @@ import axios from "axios";
 const editLeaveRequests = (id: string, model: ILeaveRequest) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(`${import.meta.env.VITE_API_URL}/LeaveRequest${id}`, model, {
+      .put(`${import.meta.env.VITE_API_URL}/LeaveRequest/${id}`, model, {
         headers: {
           "Content-Type": "application/json",
         },
