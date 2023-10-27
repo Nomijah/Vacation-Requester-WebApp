@@ -13,14 +13,12 @@ interface ILeaveRequest {
 }
 
 const LeaveRequestTopBarContainer: React.FC = () => {
-  const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>(
-    []
-  );
+  const [leaveRequests, setLeaveRequests] = useState<any[]>([]);
 
   useEffect(() => {
     getAllLeaveRequests()
       .then((data) => {
-        setLeaveRequests(data as ILeaveRequest[]);
+        setLeaveRequests(data);
       })
       .catch((err) => console.error("An error occurred:", err));
   }, []);
