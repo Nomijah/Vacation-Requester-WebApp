@@ -6,9 +6,7 @@ import { Context } from "../../App";
 
 function StaffTableContainer() {
   const { user } = useContext(Context);
-  const [leaveRequests, setLeaveRequests] = useState<
-    IStaffLeaveRequest[]
-  >([]);
+  const [leaveRequests, setLeaveRequests] = useState<IStaffLeaveRequest[]>([]);
 
   useEffect(() => {
     if (user && user.id) {
@@ -31,11 +29,8 @@ function StaffTableContainer() {
   };
 
   return (
-    <div className="container-fluid bg-light-subtle border border-dark-subtle">
-      <StaffTable
-        leaveRequests={leaveRequests}
-        onDelete={handleDelete}
-      />
+    <div>
+      <StaffTable leaveRequests={leaveRequests} onDelete={handleDelete} />
     </div>
   );
 }
