@@ -13,7 +13,7 @@ function ApplyForm({
   formData: ILeaveRequestDto;
 }) {
   return (
-    <>
+    <div className="border-rounded-3 m-3">
       <form onSubmit={handleSubmit}>
         <div className="input-group mb-3 mt-3">
           <label className="input-group-text" htmlFor="leaveType">
@@ -66,7 +66,7 @@ function ApplyForm({
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
