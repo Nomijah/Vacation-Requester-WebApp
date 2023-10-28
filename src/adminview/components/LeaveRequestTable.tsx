@@ -3,14 +3,38 @@ import "../../interface/InterfaceCollection"; // No need for the file extension
 import { ArrowDownUp } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import "./LeaveRequestTable.css";
+import EditRowLeaveRequestForm from "./EditRowLeaveRequestForm";
 
 const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
   leaveRequests,
+  handleClickEdit,
+  handleChangeApprovalState,
+  handleSelectChange,
+  leaveTypes,
+}: {
+  handleClickEdit: (id: string) => void;
+  leaveRequests: ILeaveRequest[];
+  handleChangeApprovalState: (leaveRequest: ILeaveRequest) => void;
+  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  leaveTypes: ILeaveType[];
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "none",
   });
+  const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
+  const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
+
+  const toggleRow = (index: number) => {
+    if (activeRowIndex === index) {
+      // Close the active row if it's clicked again
+      setActiveRowIndex(null);
+    } else {
+      // Set the clicked row as the active row
+      setActiveRowIndex(index);
+    }
+  };
+
   const renderApprovalState = (state: number) => {
     switch (state) {
       case 1:
@@ -48,6 +72,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
       return 0;
     });
   }
+  let counter = 0;
   return (
     <div className="container-fluid bg-light-subtle border border-dark-subtle rounded mt-3">
       <table className="table mt-4">
@@ -71,10 +96,12 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
             >
               End Date <ArrowDownUp color="royalblue" size={13} />
             </th>
+
             <th
               className="bg-dark-subtle"
               onClick={() => requestSort("dateRequested")}
             >
+
               Date Requested <ArrowDownUp color="royalblue" size={13} />
             </th>
             <th
@@ -83,6 +110,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
             >
               Leave Type <ArrowDownUp color="royalblue" size={13} />
             </th>
+
             <th
               className="bg-dark-subtle"
               onClick={() => requestSort("approvalState")}
@@ -94,6 +122,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
         </thead>
         <tbody>
           {sortedLeaveRequests.map((leaveRequest, index) => (
+
             <tr className="align-middle" key={index}>
               <td className="bg-light-subtle">{leaveRequest.employeeName}</td>
               <td className="bg-light-subtle">
@@ -113,7 +142,7 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
               <td className="bg-light-subtle">
                 {renderApprovalState(leaveRequest.approvalState)}
               </td>
-            </tr>
+
           ))}
         </tbody>
       </table>
