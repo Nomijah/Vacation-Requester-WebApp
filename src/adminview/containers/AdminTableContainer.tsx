@@ -8,18 +8,15 @@ import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveReq
 
 function AdminTableContainer() {
   const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>([]);
-  const [leaveRequest, setLeaveRequest] = useState<ILeaveRequest>(
-    {} as ILeaveRequest
-  );
-
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
-  const [selectedLeaveType, setSelectedLeaveType] = useState<ILeaveType>({
-    id: "defaultID",
-    type: "Choose a leave type..",
-  });
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [formState, setFormState] = useState({
+    id: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    leaveType: "Default",
+    approvalState: "Pending",
+  });
 
   useEffect(() => {
     getAllUserLeaveRequests()
@@ -32,21 +29,52 @@ function AdminTableContainer() {
     });
   }, []);
 
-  const handleStartDateChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const date = new Date(event.target.value);
-    setStartDate(date);
+    const { name, value } = event.target;
+
+    if (name === "startDate" || name === "endDate") {
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: new Date(value),
+      }));
+    } else {
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+
+    // Assuming you added an 'id' to formState
+    const idToUpdate = formState.id;
+
+    // Find and update leaveRequest
+    const updatedLeaveRequests = leaveRequests.map((leaveRequest) => {
+      if (leaveRequest.id === idToUpdate) {
+        return { ...leaveRequest, ...formState };
+      }
+      return leaveRequest;
+    });
+
+    setLeaveRequests(updatedLeaveRequests);
   };
 
-  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const date = new Date(event.target.value);
-    if (date < startDate) {
-      alert("End date cannot be less than start date");
-      return;
-    }
-    setEndDate(date);
-  };
+  // const handleStartDateChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const date = new Date(event.target.value);
+  //   setStartDate(date);
+  // };
+
+  // const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const date = new Date(event.target.value);
+  //   if (date < startDate) {
+  //     alert("End date cannot be less than start date");
+  //     return;
+  //   }
+  //   setEndDate(date);
+  // };
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -76,40 +104,36 @@ function AdminTableContainer() {
     console.log(leaveRequests.find((leaveRequest) => leaveRequest.id === id));
   };
 
-  const handleChangeApprovalState = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newValue = event.target.value;
-    setLeaveRequest({
-      ...leaveRequest,
-      approvalState: newValue,
-      type: selectedLeaveType.type,
-    });
-  };
+  // const handleChangeApprovalState = (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const newValue = event.target.value;
+  //   setLeaveRequest({
+  //     ...leaveRequest,
+  //     approvalState: newValue,
+  //     type: selectedLeaveType.type,
+  //   });
+  // };
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedId = event.target.value;
-    const matchingLeaveType = leaveTypes.find(
-      (leaveType) => leaveType.id === selectedId
-    );
-    if (matchingLeaveType === undefined) return;
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const selectedId = event.target.value;
+  //   const matchingLeaveType = leaveTypes.find(
+  //     (leaveType) => leaveType.id === selectedId
+  //   );
+  //   if (matchingLeaveType === undefined) return;
 
-    setSelectedLeaveType(matchingLeaveType);
-  };
+  //   setSelectedLeaveType(matchingLeaveType);
+  // };
 
   return (
     <div>
       <h2>All LeaveRequests</h2>
+      <button onClick={() => console.log(formState)}>Log UseState</button>
       <LeaveRequestEditTable
         leaveRequests={leaveRequests}
         handleClickEdit={handleClickEdit}
-        handleChangeApprovalState={handleChangeApprovalState}
-        handleSelectChange={handleSelectChange}
         leaveTypes={leaveTypes}
-        startDate={startDate}
-        endDate={endDate}
-        handleStartDateChange={handleStartDateChange}
-        handleEndDateChange={handleEndDateChange}
+        handleChange={handleChange}
         handleOnSubmit={handleOnSubmit}
       />
     </div>

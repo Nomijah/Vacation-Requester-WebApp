@@ -8,40 +8,28 @@ import EditRowLeaveRequestForm from "./EditRowLeaveRequestForm";
 const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   leaveRequests,
   handleClickEdit,
-  handleChangeApprovalState,
-  handleSelectChange,
   leaveTypes,
-  startDate,
-  endDate,
-  handleStartDateChange,
-  handleEndDateChange,
   handleOnSubmit,
+  handleChange,
 }: {
   handleClickEdit: (id: string) => void;
   leaveRequests: ILeaveRequest[];
-  handleChangeApprovalState: (leaveRequest: ILeaveRequest) => void;
-  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   leaveTypes: ILeaveType[];
-  startDate: Date;
-  endDate: Date;
-  handleStartDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleEndDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "none",
   });
-  const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
-  const [activeRowIndex, setActiveRowIndex] = useState<number | null>(null);
 
-  const toggleRow = (index: number) => {
-    if (activeRowIndex === index) {
-      // Close the active row if it's clicked again
-      setActiveRowIndex(null);
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+
+  const setEditingState = (index: number) => {
+    if (isEditing !== index) {
+      setIsEditing(index);
     } else {
-      // Set the clicked row as the active row
-      setActiveRowIndex(index);
+      setIsEditing(null);
     }
   };
 
@@ -82,7 +70,7 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
       return 0;
     });
   }
-  let counter = 0;
+
   return (
     <div>
       <table className="table mt-4">
@@ -109,9 +97,18 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {sortedLeaveRequests.map((leaveRequest, index) => (
-            <>
-              {counter++}
+          {sortedLeaveRequests.map((leaveRequest, index) =>
+            isEditing === index ? (
+              <EditRowLeaveRequestForm
+                leaveRequest={leaveRequest}
+                leaveTypes={leaveTypes}
+                key={index}
+                index={index}
+                handleOnSubmit={handleOnSubmit}
+                handleChange={handleChange}
+                setEditingState={setEditingState}
+              />
+            ) : (
               <tr className="grow-0 mw-100" key={index}>
                 <td>{leaveRequest.employeeName}</td>
                 <td>{new Date(leaveRequest.startDate).toLocaleDateString()}</td>
@@ -124,33 +121,15 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
 
                 <td>
                   <button
-                    onClick={() => toggleRow(index)}
+                    onClick={() => setEditingState(index)}
                     className="btn btn-warning"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#collapseEditRow-${index}`}
-                    aria-expanded={activeRowIndex === index}
-                    aria-controls={`collapseEditRow-${index}`}
                   >
                     Edit
                   </button>
                 </td>
               </tr>
-              <EditRowLeaveRequestForm
-                handleChangeApprovalState={handleChangeApprovalState}
-                leaveRequest={leaveRequest}
-                handleSelectChange={handleSelectChange}
-                leaveTypes={leaveTypes}
-                index={index}
-                openRows={openRows}
-                isActive={activeRowIndex === index}
-                startDate={startDate}
-                endDate={endDate}
-                handleStartDateChange={handleStartDateChange}
-                handleEndDateChange={handleEndDateChange}
-                handleOnSubmit={handleOnSubmit}
-              />
-            </>
-          ))}
+            )
+          )}
         </tbody>
       </table>
     </div>

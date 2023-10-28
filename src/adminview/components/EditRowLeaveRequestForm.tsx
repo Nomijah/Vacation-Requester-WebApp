@@ -1,96 +1,96 @@
-import DeleteEditLeaveTypeForm from "../components/DeleteEditLeaveTypeForm";
-import SelectApprovalState from "../components/SelectApprovalState";
-import { Collapse } from "react-bootstrap";
 function EditRowLeaveRequestForm({
   leaveRequest,
   leaveTypes,
-  handleSelectChange,
-  handleChangeApprovalState,
   index,
-  openRows,
-  isActive,
-  startDate,
-  endDate,
-  handleStartDateChange,
-  handleEndDateChange,
   handleOnSubmit,
+  handleChange,
+  setEditingState,
 }: {
   leaveRequest: ILeaveRequest;
   leaveTypes?: ILeaveType[];
-  handleSelectChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleChangeApprovalState: (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => void;
   index: number;
-  openRows: Record<number, boolean>;
-  isActive: boolean;
-  startDate: Date;
-  endDate: Date;
-  handleStartDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleEndDateChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  setEditingState: (index: number) => void;
 }) {
   return (
-    <Collapse in={openRows[index] || false}>
-      <tr
-        className={`border-2 border-success ${isActive ? "show" : "collapse"}`}
-        id={`collapseEditRow-${index}`}
-      >
-        <td className="bg-dark-subtle grow-0  ">
-          <input
-            type="text"
-            readOnly
-            value={leaveRequest.employeeName}
-            className="form-control"
-          />
-        </td>
-        <td className="bg-dark-subtle grow-0">
-          <input
-            onChange={handleStartDateChange}
-            type="date"
-            value={startDate.toISOString()}
-            className="form-control"
-          />
-        </td>
-        <td className="bg-dark-subtle grow-0">
-          <input
-            onChange={handleEndDateChange}
-            type="date"
-            value={endDate.toISOString()}
-            className="form-control"
-          />
-        </td>
-        <td className="bg-dark-subtle grow-0">
-          <input
-            readOnly
-            type="date"
-            value={new Date(leaveRequest.dateRequested)
-              .toISOString()
-              .substr(0, 10)}
-            className="form-control"
-          />
-        </td>
-        <td className="bg-dark-subtle grow-0 ">
-          <DeleteEditLeaveTypeForm
-            leaveTypes={leaveTypes}
-            handleSelectChange={handleSelectChange}
-            className="form-select"
-          />
-        </td>
-        <td className="bg-dark-subtle grow-0">
-          <SelectApprovalState
-            handleSelectChangeApprovalState={handleChangeApprovalState}
-            className="form-select"
-          />
-        </td>
-
-        <td className="bg-dark-subtle grow-0">
-          <button onClick={handleOnSubmit} className="btn btn-success">
-            Submit
-          </button>
-        </td>
-      </tr>
-    </Collapse>
+    <tr className={`border-2 border-success`} key={index}>
+      <td className="bg-dark-subtle grow-0  ">
+        <input
+          type="text"
+          readOnly
+          value={leaveRequest.employeeName}
+          className="form-control"
+        />
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <input
+          onChange={handleChange}
+          type="date"
+          name="startDate"
+          value={new Date(leaveRequest.startDate).toLocaleDateString()}
+          className="form-control"
+        />
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <input
+          onChange={handleChange}
+          type="date"
+          name="endDate"
+          value={new Date(leaveRequest.endDate).toLocaleDateString()}
+          className="form-control"
+        />
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <input
+          readOnly
+          type="date"
+          value={new Date(leaveRequest.dateRequested).toLocaleDateString()}
+          className="form-control"
+        />
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <select
+          name="leaveType"
+          className="form-select"
+          id="leaveType"
+          onChange={handleChange}
+          defaultValue={leaveRequest.leaveType}
+        >
+          <option disabled>Choose a leave type..</option>
+          {leaveTypes?.map((leaveType) => (
+            <option key={leaveType.id} value={leaveType.type}>
+              {leaveType.type}
+            </option>
+          ))}
+        </select>
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <select
+          name="approvalState"
+          className="form-select"
+          onChange={handleChange}
+          defaultValue={leaveRequest.approvalState}
+        >
+          <option value={1}>Pending</option>
+          <option value={2}>Accepted</option>
+          <option value={3}>Rejected</option>
+        </select>
+      </td>
+      <td className="bg-dark-subtle grow-0">
+        <button
+          onClick={() => setEditingState(null)}
+          className="btn btn-danger me-1 p-1"
+        >
+          Cancel
+        </button>
+        <button onClick={handleOnSubmit} className="btn btn-success p-1">
+          Submit
+        </button>
+      </td>
+    </tr>
   );
 }
 
