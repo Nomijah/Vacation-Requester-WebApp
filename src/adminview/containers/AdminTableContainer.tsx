@@ -12,10 +12,12 @@ function AdminTableContainer() {
 
   const [formState, setFormState] = useState({
     id: "",
+    userId: "",
     startDate: new Date(),
     endDate: new Date(),
     leaveType: "Default",
-    approvalState: "Pending",
+    approvalState: 1,
+    dateRequested: new Date(),
   });
 
   useEffect(() => {
@@ -46,10 +48,8 @@ function AdminTableContainer() {
       }));
     }
 
-    // Assuming you added an 'id' to formState
     const idToUpdate = formState.id;
 
-    // Find and update leaveRequest
     const updatedLeaveRequests = leaveRequests.map((leaveRequest) => {
       if (leaveRequest.id === idToUpdate) {
         return { ...leaveRequest, ...formState };
@@ -60,35 +60,25 @@ function AdminTableContainer() {
     setLeaveRequests(updatedLeaveRequests);
   };
 
-  // const handleStartDateChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const date = new Date(event.target.value);
-  //   setStartDate(date);
-  // };
-
-  // const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const date = new Date(event.target.value);
-  //   if (date < startDate) {
-  //     alert("End date cannot be less than start date");
-  //     return;
-  //   }
-  //   setEndDate(date);
-  // };
-
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const leaveRequestToEdit: ILeaveRequest = {
-        id: leaveRequest.id,
+      const leaveTypeId = leaveTypes.find(
+        (leaveType) => leaveType.type === formState.leaveType
+      )?.id;
 
-        userId: leaveRequest.userId,
-        approvalState: leaveRequest.approvalState,
-
-        startDate: startDate,
-        endDate: endDate,
+      const leaveRequestToEdit = {
+        id: formState.id,
+        userId: formState.userId,
+        startDate: formState.startDate,
+        endDate: formState.endDate,
+        leaveTypeId: leaveTypeId,
+        leaveType: formState.leaveType,
+        dateRequested: formState.dateRequested,
+        approvalState: formState.approvalState,
       };
-      await editLeaveRequest(leaveRequest.id, leaveRequestToEdit);
+
+      await editLeaveRequest(leaveRequestToEdit);
       getAllLeaveRequests().then((data) => {
         setLeaveRequests(data);
       });
@@ -101,29 +91,22 @@ function AdminTableContainer() {
 
   const handleClickEdit = (id: string) => {
     console.log("Edit Clicked");
-    console.log(leaveRequests.find((leaveRequest) => leaveRequest.id === id));
+    const leaveRequestToEdit = leaveRequests.find(
+      (leaveRequest) => leaveRequest.id === id
+    );
+    if (leaveRequestToEdit) {
+      setFormState({
+        ...formState, // Spread existing formState properties
+        id: leaveRequestToEdit.id,
+        userId: leaveRequestToEdit.userId,
+        dateRequested: leaveRequestToEdit.dateRequested,
+        startDate: leaveRequestToEdit.startDate,
+        endDate: leaveRequestToEdit.endDate,
+        leaveType: leaveRequestToEdit.leaveType,
+        approvalState: leaveRequestToEdit.approvalState,
+      });
+    }
   };
-
-  // const handleChangeApprovalState = (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   const newValue = event.target.value;
-  //   setLeaveRequest({
-  //     ...leaveRequest,
-  //     approvalState: newValue,
-  //     type: selectedLeaveType.type,
-  //   });
-  // };
-
-  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedId = event.target.value;
-  //   const matchingLeaveType = leaveTypes.find(
-  //     (leaveType) => leaveType.id === selectedId
-  //   );
-  //   if (matchingLeaveType === undefined) return;
-
-  //   setSelectedLeaveType(matchingLeaveType);
-  // };
 
   return (
     <div>
@@ -135,6 +118,7 @@ function AdminTableContainer() {
         leaveTypes={leaveTypes}
         handleChange={handleChange}
         handleOnSubmit={handleOnSubmit}
+        formState={formState}
       />
     </div>
   );

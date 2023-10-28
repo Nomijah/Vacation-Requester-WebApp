@@ -11,12 +11,14 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   leaveTypes,
   handleOnSubmit,
   handleChange,
+  formState,
 }: {
   handleClickEdit: (id: string) => void;
   leaveRequests: ILeaveRequest[];
   leaveTypes: ILeaveType[];
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  formState: ILeaveRequest;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -107,6 +109,7 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
                 handleOnSubmit={handleOnSubmit}
                 handleChange={handleChange}
                 setEditingState={setEditingState}
+                formState={formState}
               />
             ) : (
               <tr className="grow-0 mw-100" key={index}>

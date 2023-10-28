@@ -8,7 +8,15 @@ enum ApprovalState {
   "Accepted" = 2, // Assuming 2 maps to "Accepted"
   "Rejected" = 3, // Assuming 3 maps to "Rejected"
 }
-
+interface ILeaveRequestToEdit {
+  id: string;
+  userId: string;
+  leaveType: string;
+  startDate: Date;
+  endDate: Date;
+  dateRequested: Date;
+  approvalState: ApprovalState; // Changed to enum
+}
 interface ILeaveRequest {
   id: string;
   employeeName: string;

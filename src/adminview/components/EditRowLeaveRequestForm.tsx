@@ -5,6 +5,7 @@ function EditRowLeaveRequestForm({
   handleOnSubmit,
   handleChange,
   setEditingState,
+  formState,
 }: {
   leaveRequest: ILeaveRequest;
   leaveTypes?: ILeaveType[];
@@ -14,6 +15,7 @@ function EditRowLeaveRequestForm({
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
   setEditingState: (index: number) => void;
+  formState: ILeaveRequest;
 }) {
   return (
     <tr className={`border-2 border-success`} key={index}>
@@ -30,7 +32,7 @@ function EditRowLeaveRequestForm({
           onChange={handleChange}
           type="date"
           name="startDate"
-          value={new Date(leaveRequest.startDate).toLocaleDateString()}
+          value={new Date(formState.startDate).toLocaleDateString()}
           className="form-control"
         />
       </td>
@@ -39,7 +41,7 @@ function EditRowLeaveRequestForm({
           onChange={handleChange}
           type="date"
           name="endDate"
-          value={new Date(leaveRequest.endDate).toLocaleDateString()}
+          value={new Date(formState.endDate).toLocaleDateString()}
           className="form-control"
         />
       </td>
@@ -55,9 +57,8 @@ function EditRowLeaveRequestForm({
         <select
           name="leaveType"
           className="form-select"
-          id="leaveType"
           onChange={handleChange}
-          defaultValue={leaveRequest.leaveType}
+          defaultValue={formState.leaveType}
         >
           <option disabled>Choose a leave type..</option>
           {leaveTypes?.map((leaveType) => (

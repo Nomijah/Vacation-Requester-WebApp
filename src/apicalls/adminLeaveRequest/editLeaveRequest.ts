@@ -6,16 +6,16 @@ enum ApprovalState {
 import "../../interface/InterfaceCollection";
 import axios from "axios";
 
-const editLeaveRequests = (id: string, model: ILeaveRequest) => {
+const editLeaveRequests = (model: ILeaveRequestToEdit) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(`${import.meta.env.VITE_API_URL}/LeaveRequest/${id}`, model, {
+      .put(`${import.meta.env.VITE_API_URL}/LeaveRequest`, model, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        resolve(`Successfully edited LeaveRequest with id ${model.Id}`);
+        resolve(`Successfully edited LeaveRequest with id ${model.id}`);
       })
       .catch((err) => {
         console.log(err);
