@@ -13,9 +13,12 @@ const editLeaveRequests = (model: ILeaveRequestToEdit) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       })
       .then((res) => {
-        resolve(`Successfully edited LeaveRequest with id ${model.id}`);
+        resolve(
+          `Successfully edited LeaveRequest with id ${model.id}`
+        );
       })
       .catch((err) => {
         console.log(err);
