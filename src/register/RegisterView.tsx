@@ -11,7 +11,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
   handleRegistration,
 }) => {
   return (
-    <div>
+    <div className="login-container">
       <RegisterFormContainer
         handleRegistration={handleRegistration}
       />

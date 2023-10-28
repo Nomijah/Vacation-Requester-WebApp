@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react";
-// import { IStaffLeaveRequest } from "../../interface/InterfaceCollection";
-import "../../interface/InterfaceCollection";
 import getAllUserLeaveRequests from "../../apicalls/staffLeaveRequest/getAllUserLeaveRequests";
+import deleteLeaveRequest from "../../apicalls/staffLeaveRequest/deleteLeaveRequest";
 import StaffTable from "../Components/StaffTable";
-import { Context } from "../../App"; // make sure to import Context from the correct path
+import { Context } from "../../App";
 
 function StaffTableContainer() {
   const { user } = useContext(Context);
@@ -19,14 +18,54 @@ function StaffTableContainer() {
     }
   }, [user.id]);
 
+  const handleDelete = (id: string) => {
+    deleteLeaveRequest(id)
+      .then(() => {
+        setLeaveRequests((prevRequests) =>
+          prevRequests.filter((request) => request.id !== id)
+        );
+      })
+      .catch((err) => console.error("An error occurred:", err));
+  };
+
   return (
-    <div className="container-fluid bg-light-subtle border border-dark-subtle">
-      <StaffTable leaveRequests={leaveRequests} />
+    <div>
+      <StaffTable leaveRequests={leaveRequests} onDelete={handleDelete} />
     </div>
   );
 }
 
 export default StaffTableContainer;
+
+// import { useState, useEffect, useContext } from "react";
+// // import { IStaffLeaveRequest } from "../../interface/InterfaceCollection";
+// import "../../interface/InterfaceCollection";
+// import getAllUserLeaveRequests from "../../apicalls/staffLeaveRequest/getAllUserLeaveRequests";
+// import StaffTable from "../Components/StaffTable";
+// import { Context } from "../../App"; // make sure to import Context from the correct path
+
+// function StaffTableContainer() {
+//   const { user } = useContext(Context);
+//   const [leaveRequests, setLeaveRequests] = useState<IStaffLeaveRequest[]>([]);
+
+//   useEffect(() => {
+//     if (user && user.id) {
+//       getAllUserLeaveRequests(user.id)
+//         .then((data) => {
+//           setLeaveRequests(data as IStaffLeaveRequest[]);
+//         })
+//         .catch((err) => console.error("An error occurred:", err));
+//     }
+//   }, [user.id]);
+
+//   return (
+//     <div className="container-fluid bg-light-subtle border border-dark-subtle">
+//       <StaffTable leaveRequests={leaveRequests} />
+//     </div>
+//   );
+// }
+
+// export default StaffTableContainer;
 
 //OLd code below
 

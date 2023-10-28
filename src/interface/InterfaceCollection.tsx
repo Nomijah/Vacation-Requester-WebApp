@@ -8,6 +8,7 @@ enum ApprovalState {
   "Accepted" = 2, // Assuming 2 maps to "Accepted"
   "Rejected" = 3, // Assuming 3 maps to "Rejected"
 }
+
 interface ILeaveRequestToEdit {
   id: string;
   userId: string;
@@ -17,6 +18,14 @@ interface ILeaveRequestToEdit {
   dateRequested: Date;
   approvalState: ApprovalState; // Changed to enum
 }
+
+
+interface DeleteButtonProps {
+  approvalState: number;
+  onDelete: (id: string) => void;
+  id: string;
+}
+
 interface ILeaveRequest {
   id: string;
   employeeName: string;

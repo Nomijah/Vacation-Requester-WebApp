@@ -74,67 +74,75 @@ const LeaveRequestTable: React.FC<LeaveRequestTableProps> = ({
   }
   let counter = 0;
   return (
-    <div>
+    <div className="container-fluid bg-light-subtle border border-dark-subtle rounded mt-3">
       <table className="table mt-4">
         <thead>
           <tr className="border-1">
-            <th onClick={() => requestSort(`employeeName`)}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort(`employeeName`)}
+            >
               Name <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("startDate")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("startDate")}
+            >
               Start Date <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("endDate")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("endDate")}
+            >
               End Date <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("dateRequested")}>
+
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("dateRequested")}
+            >
+
               Date Requested <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("leaveType")}>
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("leaveType")}
+            >
               Leave Type <ArrowDownUp color="royalblue" size={13} />
             </th>
-            <th onClick={() => requestSort("approvalState")}>
+
+            <th
+              className="bg-dark-subtle"
+              onClick={() => requestSort("approvalState")}
+            >
               Approval State <ArrowDownUp color="royalblue" size={13} />
             </th>
+            <th className="bg-dark-subtle"></th>
           </tr>
         </thead>
         <tbody>
           {sortedLeaveRequests.map((leaveRequest, index) => (
-            <>
-              {counter++}
-              <tr className="grow-0 mw-100" key={index}>
-                <td>{leaveRequest.employeeName}</td>
-                <td>{new Date(leaveRequest.startDate).toLocaleDateString()}</td>
-                <td>{new Date(leaveRequest.endDate).toLocaleDateString()}</td>
-                <td>
-                  {new Date(leaveRequest.dateRequested).toLocaleDateString()}
-                </td>
-                <td>{renderApprovalState(leaveRequest.approvalState)}</td>
 
-                <td>{leaveRequest.leaveType}</td>
-                <td>
-                  <button
-                    onClick={() => toggleRow(index)}
-                    className="btn btn-warning"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#collapseEditRow-${index}`}
-                    aria-expanded={activeRowIndex === index}
-                    aria-controls={`collapseEditRow-${index}`}
-                  >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-              <EditRowLeaveRequestForm
-                handleChangeApprovalState={handleChangeApprovalState}
-                leaveRequest={leaveRequest}
-                handleSelectChange={handleSelectChange}
-                leaveTypes={leaveTypes}
-                index={index}
-                openRows={openRows}
-                isActive={activeRowIndex === index}
-              />
-            </>
+            <tr className="align-middle" key={index}>
+              <td className="bg-light-subtle">{leaveRequest.employeeName}</td>
+              <td className="bg-light-subtle">
+                {new Date(leaveRequest.startDate).toLocaleDateString()}
+              </td>
+              <td className="bg-light-subtle">
+                {new Date(leaveRequest.endDate).toLocaleDateString()}
+              </td>
+              <td className="bg-light-subtle">
+                {new Date(leaveRequest.dateRequested).toLocaleDateString()}
+              </td>
+              <td className="bg-light-subtle">
+                {renderApprovalState(leaveRequest.approvalState)}
+              </td>
+
+              <td className="bg-light-subtle">{leaveRequest.leaveType}</td>
+              <td className="bg-light-subtle">
+                {renderApprovalState(leaveRequest.approvalState)}
+              </td>
+
           ))}
         </tbody>
       </table>
