@@ -48,7 +48,7 @@ function AdminTableContainer() {
       }));
     }
 
-    const idToUpdate = formState.id;
+    const idToUpdate = formState.leaveRequestId;
 
     const updatedLeaveRequests = leaveRequests.map((leaveRequest) => {
       if (leaveRequest.id === idToUpdate) {
@@ -73,7 +73,6 @@ function AdminTableContainer() {
         startDate: formState.startDate,
         endDate: formState.endDate,
         leaveTypeId: leaveTypeId,
-        leaveType: formState.leaveType,
         dateRequested: formState.dateRequested,
         approvalState: formState.approvalState,
       };
@@ -95,9 +94,15 @@ function AdminTableContainer() {
 
   const handleClickEdit = (leaveRequestId: string, userId: string) => {
     console.log("Edit Clicked");
+
     const leaveRequestToEdit = leaveRequests.find(
-      (leaveRequest) => leaveRequest.id === leaveRequestId
+      (leaveRequest) => leaveRequest.leaveRequestId === leaveRequestId
     );
+    console.log(
+      "OnClick - Trying to set FormState to this object: leaveRequestToEdit: ",
+      leaveRequestToEdit
+    );
+
     if (leaveRequestToEdit) {
       console.log("Trying to set formState to id..");
       setFormState({

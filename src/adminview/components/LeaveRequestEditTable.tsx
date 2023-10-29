@@ -155,12 +155,14 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
                         leaveRequest.leaveRequestId,
                         leaveRequest.userId
                       );
-                      console.log("ID:", leaveRequest.id);
                       console.log(
                         "leaveRequestId:",
                         leaveRequest.leaveRequestId
                       );
-                      console.log("leaveRequestObject:", leaveRequest);
+                      console.log(
+                        "leaveRequestObject From OnClick Button:",
+                        leaveRequest
+                      );
                     }}
                     className="btn btn-warning"
                   >

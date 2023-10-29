@@ -17,6 +17,22 @@ function EditRowLeaveRequestForm({
   setEditingState: (index: number) => void;
   formState: ILeaveRequest;
 }) {
+  const formatDate = (date: Date) => {
+    const d = new Date(date);
+    let month = "" + (d.getMonth() + 1);
+    let day = "" + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) {
+      month = "0" + month;
+    }
+    if (day.length < 2) {
+      day = "0" + day;
+    }
+
+    return [year, month, day].join("-");
+  };
+
   return (
     <tr className={`border-2 border-success`} key={index}>
       <td className="bg-dark-subtle grow-0  ">
@@ -32,7 +48,7 @@ function EditRowLeaveRequestForm({
           onChange={handleChange}
           type="date"
           name="startDate"
-          value={new Date(formState.startDate).toLocaleDateString()}
+          value={formatDate(formState.startDate)}
           className="form-control"
         />
       </td>
@@ -41,7 +57,7 @@ function EditRowLeaveRequestForm({
           onChange={handleChange}
           type="date"
           name="endDate"
-          value={new Date(formState.endDate).toLocaleDateString()}
+          value={formatDate(formState.endDate)}
           className="form-control"
         />
       </td>
@@ -49,7 +65,7 @@ function EditRowLeaveRequestForm({
         <input
           readOnly
           type="date"
-          value={new Date(leaveRequest.dateRequested).toLocaleDateString()}
+          value={formatDate(leaveRequest.dateRequested)}
           className="form-control"
         />
       </td>
