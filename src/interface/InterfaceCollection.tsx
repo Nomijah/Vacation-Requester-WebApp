@@ -19,7 +19,6 @@ interface ILeaveRequestToEdit {
   approvalState: ApprovalState; // Changed to enum
 }
 
-
 interface DeleteButtonProps {
   approvalState: number;
   onDelete: (id: string) => void;
@@ -28,6 +27,7 @@ interface DeleteButtonProps {
 
 interface ILeaveRequest {
   id: string;
+  leaveRequestId: string;
   employeeName: string;
   userId: string;
   leaveType: string;

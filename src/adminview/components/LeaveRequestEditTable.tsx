@@ -13,7 +13,7 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   handleChange,
   formState,
 }: {
-  handleClickEdit: (id: string) => void;
+  handleClickEdit: (id: string, userId: string) => void;
   leaveRequests: ILeaveRequest[];
   leaveTypes: ILeaveType[];
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -149,7 +149,19 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
 
                 <td>
                   <button
-                    onClick={() => setEditingState(index)}
+                    onClick={() => {
+                      setEditingState(index);
+                      handleClickEdit(
+                        leaveRequest.leaveRequestId,
+                        leaveRequest.userId
+                      );
+                      console.log("ID:", leaveRequest.id);
+                      console.log(
+                        "leaveRequestId:",
+                        leaveRequest.leaveRequestId
+                      );
+                      console.log("leaveRequestObject:", leaveRequest);
+                    }}
                     className="btn btn-warning"
                   >
                     Edit
