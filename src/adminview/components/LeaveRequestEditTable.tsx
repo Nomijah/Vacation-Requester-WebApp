@@ -1,5 +1,6 @@
 import "../../interface/InterfaceCollection"; // No need for the file extension
 
+import { Trash } from "react-bootstrap-icons";
 import { ArrowDownUp } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import "./LeaveRequestTable.css";
@@ -14,6 +15,7 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   formState,
   setEditingState,
   isEditing,
+  handleDelete,
 }: {
   handleClickEdit: (id: string, userId: string) => void;
   leaveRequests: ILeaveRequest[];
@@ -23,6 +25,7 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   formState: ILeaveRequest;
   setIsEditing: (index: number) => void;
   isEditing: number | null;
+  handleDelete: (id: string) => void;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
@@ -162,6 +165,18 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
                   >
                     Edit
                   </button>
+                  {(leaveRequest.approvalState === 2 ||
+                    leaveRequest.approvalState === 3) && (
+                    <button
+                      onClick={() => {
+                        handleDelete(leaveRequest.leaveRequestId);
+                        console.log(leaveRequest.leaveRequestId);
+                      }}
+                      className="btn btn-danger ms-1"
+                    >
+                      <Trash color="white" size={16} />
+                    </button>
+                  )}
                 </td>
               </tr>
             )
