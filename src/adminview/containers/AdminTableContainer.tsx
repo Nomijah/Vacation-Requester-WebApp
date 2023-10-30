@@ -20,6 +20,16 @@ function AdminTableContainer() {
     dateRequested: new Date(),
   });
 
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+
+  const setEditingState = (index: number) => {
+    if (isEditing !== index) {
+      setIsEditing(index);
+    } else {
+      setIsEditing(null);
+    }
+  };
+
   useEffect(() => {
     getAllUserLeaveRequests()
       .then((data) => {
@@ -62,6 +72,7 @@ function AdminTableContainer() {
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setEditingState(null);
     try {
       const leaveTypeId = leaveTypes.find(
         (leaveType) => leaveType.type === formState.leaveType
@@ -133,6 +144,8 @@ function AdminTableContainer() {
         handleChange={handleChange}
         handleOnSubmit={handleOnSubmit}
         formState={formState}
+        setEditingState={setEditingState}
+        isEditing={isEditing}
       />
     </div>
   );

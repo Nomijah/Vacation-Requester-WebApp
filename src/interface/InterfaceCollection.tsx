@@ -16,7 +16,7 @@ interface ILeaveRequestToEdit {
   startDate: Date;
   endDate: Date;
   dateRequested: Date;
-  approvalState: number; // Changed to enum
+  approvalState: number;
 }
 
 interface DeleteButtonProps {

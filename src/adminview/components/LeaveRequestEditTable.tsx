@@ -12,6 +12,8 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   handleOnSubmit,
   handleChange,
   formState,
+  setEditingState,
+  isEditing,
 }: {
   handleClickEdit: (id: string, userId: string) => void;
   leaveRequests: ILeaveRequest[];
@@ -19,21 +21,13 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formState: ILeaveRequest;
+  setIsEditing: (index: number) => void;
+  isEditing: number | null;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "none",
   });
-
-  const [isEditing, setIsEditing] = useState<number | null>(null);
-
-  const setEditingState = (index: number) => {
-    if (isEditing !== index) {
-      setIsEditing(index);
-    } else {
-      setIsEditing(null);
-    }
-  };
 
   const renderApprovalState = (state: number) => {
     switch (state) {
