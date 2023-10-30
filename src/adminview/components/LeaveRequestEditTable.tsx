@@ -12,28 +12,22 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   handleOnSubmit,
   handleChange,
   formState,
+  setEditingState,
+  isEditing,
 }: {
-  handleClickEdit: (id: string) => void;
+  handleClickEdit: (id: string, userId: string) => void;
   leaveRequests: ILeaveRequest[];
   leaveTypes: ILeaveType[];
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formState: ILeaveRequest;
+  setIsEditing: (index: number) => void;
+  isEditing: number | null;
 }) => {
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "none",
   });
-
-  const [isEditing, setIsEditing] = useState<number | null>(null);
-
-  const setEditingState = (index: number) => {
-    if (isEditing !== index) {
-      setIsEditing(index);
-    } else {
-      setIsEditing(null);
-    }
-  };
 
   const renderApprovalState = (state: number) => {
     switch (state) {
@@ -149,7 +143,21 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
 
                 <td>
                   <button
-                    onClick={() => setEditingState(index)}
+                    onClick={() => {
+                      setEditingState(index);
+                      handleClickEdit(
+                        leaveRequest.leaveRequestId,
+                        leaveRequest.userId
+                      );
+                      console.log(
+                        "leaveRequestId:",
+                        leaveRequest.leaveRequestId
+                      );
+                      console.log(
+                        "leaveRequestObject From OnClick Button:",
+                        leaveRequest
+                      );
+                    }}
                     className="btn btn-warning"
                   >
                     Edit

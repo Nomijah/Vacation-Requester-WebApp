@@ -11,6 +11,7 @@ const getAllLeaveTypes = (): Promise<ILeaveType[]> => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log("Succesfully fetched Leave Type Data! : ", res.data);
         resolve(res.data);
       })
       .catch((err) => {

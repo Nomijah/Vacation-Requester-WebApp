@@ -8,6 +8,9 @@ import axios from "axios";
 
 const editLeaveRequests = (model: ILeaveRequestToEdit) => {
   return new Promise((resolve, reject) => {
+    if (typeof model.approvalState === "string") {
+      model.approvalState = parseInt(model.approvalState);
+    }
     axios
       .put(`${import.meta.env.VITE_API_URL}/LeaveRequest`, model, {
         headers: {
@@ -22,6 +25,7 @@ const editLeaveRequests = (model: ILeaveRequestToEdit) => {
       })
       .catch((err) => {
         console.log(err);
+        console.log("FAILED IN JS FUNCTION: LeaveRequestToEdit: ", model);
         reject(err);
       });
   });

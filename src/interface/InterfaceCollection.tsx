@@ -12,13 +12,12 @@ enum ApprovalState {
 interface ILeaveRequestToEdit {
   id: string;
   userId: string;
-  leaveType: string;
+  leaveTypeId: string;
   startDate: Date;
   endDate: Date;
   dateRequested: Date;
-  approvalState: ApprovalState; // Changed to enum
+  approvalState: number;
 }
-
 
 interface DeleteButtonProps {
   approvalState: number;
@@ -28,6 +27,7 @@ interface DeleteButtonProps {
 
 interface ILeaveRequest {
   id: string;
+  leaveRequestId: string;
   employeeName: string;
   userId: string;
   leaveType: string;

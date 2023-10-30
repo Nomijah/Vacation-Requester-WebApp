@@ -11,7 +11,7 @@ function AdminTableContainer() {
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
 
   const [formState, setFormState] = useState({
-    id: "",
+    leaveRequestId: "",
     userId: "",
     startDate: new Date(),
     endDate: new Date(),
@@ -19,6 +19,16 @@ function AdminTableContainer() {
     approvalState: 1,
     dateRequested: new Date(),
   });
+
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+
+  const setEditingState = (index: number) => {
+    if (isEditing !== index) {
+      setIsEditing(index);
+    } else {
+      setIsEditing(null);
+    }
+  };
 
   useEffect(() => {
     getAllUserLeaveRequests()
@@ -48,7 +58,7 @@ function AdminTableContainer() {
       }));
     }
 
-    const idToUpdate = formState.id;
+    const idToUpdate = formState.leaveRequestId;
 
     const updatedLeaveRequests = leaveRequests.map((leaveRequest) => {
       if (leaveRequest.id === idToUpdate) {
@@ -62,21 +72,25 @@ function AdminTableContainer() {
 
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setEditingState(null);
     try {
       const leaveTypeId = leaveTypes.find(
         (leaveType) => leaveType.type === formState.leaveType
       )?.id;
 
       const leaveRequestToEdit = {
-        id: formState.id,
+        id: formState.leaveRequestId,
         userId: formState.userId,
         startDate: formState.startDate,
         endDate: formState.endDate,
         leaveTypeId: leaveTypeId,
-        leaveType: formState.leaveType,
         dateRequested: formState.dateRequested,
         approvalState: formState.approvalState,
       };
+      console.log(
+        "Trying to update this formState object to API:",
+        leaveRequestToEdit
+      );
 
       await editLeaveRequest(leaveRequestToEdit);
       getAllLeaveRequests().then((data) => {
@@ -89,22 +103,33 @@ function AdminTableContainer() {
     }
   };
 
-  const handleClickEdit = (id: string) => {
+  const handleClickEdit = (leaveRequestId: string, userId: string) => {
     console.log("Edit Clicked");
+
     const leaveRequestToEdit = leaveRequests.find(
-      (leaveRequest) => leaveRequest.id === id
+      (leaveRequest) => leaveRequest.leaveRequestId === leaveRequestId
     );
+    console.log(
+      "OnClick - Trying to set FormState to this object: leaveRequestToEdit: ",
+      leaveRequestToEdit
+    );
+
     if (leaveRequestToEdit) {
+      console.log("Trying to set formState to id..");
       setFormState({
         ...formState, // Spread existing formState properties
-        id: leaveRequestToEdit.id,
-        userId: leaveRequestToEdit.userId,
+        leaveRequestId: leaveRequestId,
+        userId: userId,
         dateRequested: leaveRequestToEdit.dateRequested,
         startDate: leaveRequestToEdit.startDate,
         endDate: leaveRequestToEdit.endDate,
         leaveType: leaveRequestToEdit.leaveType,
         approvalState: leaveRequestToEdit.approvalState,
       });
+      console.log(
+        "LeaveRequest Edit on click found, current formState: ",
+        formState
+      );
     }
   };
 
@@ -119,6 +144,8 @@ function AdminTableContainer() {
         handleChange={handleChange}
         handleOnSubmit={handleOnSubmit}
         formState={formState}
+        setEditingState={setEditingState}
+        isEditing={isEditing}
       />
     </div>
   );
