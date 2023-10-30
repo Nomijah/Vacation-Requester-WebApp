@@ -33,16 +33,41 @@ const LeaveRequestEditTable: React.FC<LeaveRequestTableProps> = ({
   });
 
   const renderApprovalState = (state: number) => {
+    let colorClass = "";
+    let text = "";
     switch (state) {
       case 1:
-        return "Pending";
+        text = "Pending";
+        colorClass = "";
+        break;
       case 2:
-        return "Approved";
+        text = "Approved";
+        colorClass = "bg-success";
+        break;
       case 3:
-        return "Rejected";
+        text = "Rejected";
+        colorClass = "bg-danger";
+        break;
       default:
-        return null; // or return "Unknown" or some other placeholder
+        text = "Unknown";
+        colorClass = "bg-warning";
+        break;
     }
+
+    return (
+      <>
+        <div
+          className={` me-2 rounded-circle ${colorClass}`}
+          style={{
+            width: "12px",
+            height: "12px",
+            display: "inline-block",
+            marginLeft: "8px",
+          }}
+        ></div>
+        {text}
+      </>
+    );
   };
 
   const requestSort = (key: string) => {
