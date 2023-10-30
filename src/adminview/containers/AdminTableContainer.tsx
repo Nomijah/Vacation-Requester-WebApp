@@ -5,6 +5,7 @@ import getAllUserLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeav
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
 import editLeaveRequest from "../../apicalls/adminLeaveRequest/editLeaveRequest";
 import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
+import deleteLeaveRequest from "../../apicalls/staffLeaveRequest/deleteleaverequest";
 
 function AdminTableContainer() {
   const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>([]);
@@ -102,6 +103,28 @@ function AdminTableContainer() {
       console.error("Failed to edit leave request", error);
     }
   };
+  const handleDelete = (id: string) => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to delete this leave request?"
+    );
+
+    if (!userConfirmed) {
+      return;
+    }
+
+    deleteLeaveRequest(id)
+      .then(() => {
+        setLeaveRequests((prevRequests) =>
+          prevRequests.filter((request) => request.id !== id)
+        );
+      })
+      .catch((err) => console.error("An error occurred:", err))
+      .finally(() => {
+        getAllLeaveRequests().then((data) => {
+          setLeaveRequests(data);
+        });
+      });
+  };
 
   const handleClickEdit = (leaveRequestId: string, userId: string) => {
     console.log("Edit Clicked");
@@ -146,6 +169,7 @@ function AdminTableContainer() {
         formState={formState}
         setEditingState={setEditingState}
         isEditing={isEditing}
+        handleDelete={handleDelete}
       />
     </div>
   );
