@@ -24,9 +24,7 @@ export function App() {
   });
 
   useEffect(() => {
-    const data = window.localStorage.getItem(
-      "VACATION_REQUESTER_USER"
-    );
+    const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
     if (data) {
       const loggedInUser: IUser = JSON.parse(data);
       if (loggedInUser !== null) {
@@ -53,18 +51,19 @@ export function App() {
   }, [isLoggedIn]);
 
   const refreshTriggerFunc = () => {
+    // console.log("refresh trigger körs");
     setRefreshTrigger(!refreshTrigger);
   };
 
   useEffect(() => {
     const minute = 1000 * 60;
-    console.log("timer startas om");
-    setTimeout(refreshTriggerFunc, minute * 12);
+    // console.log("timer startas om");
+    setTimeout(refreshTriggerFunc, minute);
   }, [timerTrigger]);
 
   // useDidMountEffect to not render on refresh
   useDidMountEffect(() => {
-    console.log("useDidMount körs");
+    // console.log("useDidMount körs");
     if (isLoggedIn && userActivity) {
       tokenRenewal();
       setUserActivity(false);
@@ -88,7 +87,7 @@ export function App() {
   // Delay the time until next execution to not overflow the system with constant functions running when user is active.
   const debouncedUserActivity = debounce(() => {
     setUserActivity(true);
-    console.log("setUserActivit körs");
+    // console.log("setUserActivity körs");
   }, 1000); // 1000 milliseconds (1 second) delay
 
   useEffect(() => {
@@ -115,7 +114,7 @@ export function App() {
       role: 0,
       email: "",
     });
-    console.log("Nu tas local storage bort");
+    // console.log("Nu tas local storage bort");
     window.localStorage.removeItem("VACATION_REQUESTER_USER");
     setIsLoggedIn(false);
   };

@@ -8,9 +8,7 @@ import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveReq
 import deleteLeaveRequest from "../../apicalls/staffLeaveRequest/deleteLeaveRequest";
 
 function AdminTableContainer() {
-  const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>(
-    []
-  );
+  const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>([]);
   const [leaveTypes, setLeaveTypes] = useState<ILeaveType[]>([]);
 
   const [formState, setFormState] = useState({
@@ -73,9 +71,7 @@ function AdminTableContainer() {
     setLeaveRequests(updatedLeaveRequests);
   };
 
-  const handleOnSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setEditingState(null);
     try {
@@ -130,10 +126,7 @@ function AdminTableContainer() {
       });
   };
 
-  const handleClickEdit = (
-    leaveRequestId: string,
-    userId: string
-  ) => {
+  const handleClickEdit = (leaveRequestId: string, userId: string) => {
     console.log("Edit Clicked");
 
     const leaveRequestToEdit = leaveRequests.find(
@@ -165,7 +158,7 @@ function AdminTableContainer() {
 
   return (
     <div>
-      <h2>All LeaveRequests</h2>
+      <h2 className="mt-3">All LeaveRequests</h2>
       {/* <button onClick={() => console.log(formState)}>Log UseState</button> */}
       <LeaveRequestEditTable
         leaveRequests={leaveRequests}

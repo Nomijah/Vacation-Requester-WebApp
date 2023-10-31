@@ -72,7 +72,7 @@ function DeleteEditLeaveTypeContainer() {
   };
   return (
     <>
-      <div className="container mt-5 w-50 border p-2">
+      <div className="m-5 mt-5 border rounded p-2">
         <h4 className="mb-3">Leave Type Management</h4>
 
         <CreateLeaveTypeContainer setReFetch={setReFetch} reFetch={reFetch} />

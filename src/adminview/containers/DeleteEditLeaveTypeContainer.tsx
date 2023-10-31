@@ -71,15 +71,15 @@ export function DeleteEditLeaveTypeContainer() {
   };
   return (
     <>
-      <div className="container mt-5 w-50 border p-2">
-        <h4 className="mb-3">Leave Type Management</h4>
+      <div className="container mx-auto m-5 mt-5 w-50 border rounded p-4">
+        <h4 className="align-middle mb-3 ">Leave Type Management</h4>
 
         <CreateLeaveTypeContainer setReFetch={setReFetch} reFetch={reFetch} />
         <DeleteEditLeaveTypeForm
           leaveTypes={leaveTypes}
           handleSelectChange={handleSelectChange}
         />
-        <div className="d-flex row mt-4">
+        <div className="d-flex row mt-4 p-2">
           <EditLeaveTypeForm
             selectedLeaveType={selectedLeaveType}
             handleEditFormChange={handleEditFormChange}

@@ -5,13 +5,11 @@ function TimeExportButtons({
   handleExportButtonClick,
 }: {
   leaveTypes: ILeaveType[];
-  handleSelectChange: (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => void;
+  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }) {
   return (
     <>
-      <div className="">
+      <div className="mb-3">
         <button
           onClick={filterLeaveRequests}
           className="btn btn-primary rounded-end-0"
