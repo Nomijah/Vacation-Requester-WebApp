@@ -9,7 +9,7 @@ import tokenRenewal from "./apicalls/tokenRenewal";
 import useDidMountEffect from "./useDidMountEffect";
 
 export const Context = React.createContext<any>(undefined);
-
+//Nu borde Alvins grejer funka
 export function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(true);
@@ -24,7 +24,9 @@ export function App() {
   });
 
   useEffect(() => {
-    const data = window.localStorage.getItem("VACATION_REQUESTER_USER");
+    const data = window.localStorage.getItem(
+      "VACATION_REQUESTER_USER"
+    );
     if (data) {
       const loggedInUser: IUser = JSON.parse(data);
       if (loggedInUser !== null) {
