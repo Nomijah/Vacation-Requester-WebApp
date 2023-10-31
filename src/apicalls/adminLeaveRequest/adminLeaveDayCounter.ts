@@ -21,7 +21,7 @@ const adminLeaveDayCounter = async (
     // check that the leave has occured in the correct year
     if (
       new Date(leaveRequest.startDate).getFullYear() === year &&
-      leaveRequest.approvalState === 1
+      leaveRequest.approvalState === 2
     ) {
       const leaveTypeDaysToUpdate = leaveTypeDaysArray.find(
         (leaveTypeDays) =>
