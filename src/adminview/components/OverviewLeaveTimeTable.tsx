@@ -7,14 +7,20 @@ function OverviewLeaveTimeTable({
 }) {
   return (
     <div className="container-fluid bg-light-subtle border border-dark-subtle rounded">
-      <h5 className="mt-2">Total days for each leave type</h5>
+      <h5 className="mt-2">
+        Total approved days for {new Date().getFullYear()}
+      </h5>
       <table className="table">
         <tbody>
           {leaveTypeDays.map((element) => (
             <tr key={element.type}>
               <td className="bg-light-subtle">
                 {element.type}: {element.days}
-                {element.days === 1 ? <span> day </span> : <span> days </span>}
+                {element.days === 1 ? (
+                  <span> day </span>
+                ) : (
+                  <span> days </span>
+                )}
                 registered.
               </td>
             </tr>
