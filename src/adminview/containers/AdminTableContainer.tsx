@@ -5,7 +5,7 @@ import getAllUserLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeav
 import getAllLeaveTypes from "../../apicalls/leaveTypeRequests/getAllLeaveTypes";
 import editLeaveRequest from "../../apicalls/adminLeaveRequest/editLeaveRequest";
 import getAllLeaveRequests from "../../apicalls/adminLeaveRequest/getAllLeaveRequests";
-import deleteLeaveRequest from "../../apicalls/staffLeaveRequest/deleteleaverequest";
+import deleteLeaveRequest from "../../apicalls/staffLeaveRequest/deleteLeaveRequest";
 
 function AdminTableContainer() {
   const [leaveRequests, setLeaveRequests] = useState<ILeaveRequest[]>(
